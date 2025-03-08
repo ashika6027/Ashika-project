@@ -37,7 +37,7 @@ export default function LandingPage() {
           </Button>
           <Button className="nav-btn">
             {" "}
-            <Link to="/chatbot"> AI Chatbot</Link>
+            <Link to="/chatbot"> AI- Chatbot</Link>
           </Button>
           <Button className="nav-btn">
             <Link to="/search">Case Search</Link>
