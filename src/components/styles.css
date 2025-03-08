@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #0d1117;
+    background-color: #152131;
     color: white;
   }
   
@@ -13,7 +13,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    background-color: #161b22;
+    background-color: rgb(24, 30, 37);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -50,10 +50,13 @@ body {
   }
   
   /* Hero Section */
-  .hero {
-    text-align: center;
+  .hero-section{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 60px 20px;
-    background: linear-gradient(to right, #10151e, #0d1117);
+    background: linear-gradient(to right, #1d3e79, #0d1117);
   }
   
   .hero h1 {
@@ -75,18 +78,22 @@ body {
     margin-top: 20px;
   }
   
-  .search-bar {
-    width: 50%;
+  .search-input
+  {
+    color: white;
+  }
+  .search-box {
+    width: max-content;
     padding: 12px;
-    border-radius: 8px 0 0 8px;
+    border-radius: 8px;
     border: none;
     outline: none;
     font-size: 16px;
-    background-color: #2b313b;
+    background-color: white;
     color: white;
   }
   
-  .search-button {
+  .search-btn {
     padding: 12px 20px;
     border: none;
     background-color: #3b82f6;
@@ -102,14 +109,20 @@ body {
   }
   
   /* Features Section */
-  .features {
+  .features-grid {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin: 50px auto;
     max-width: 1000px;
   }
-  
+  .extra-features-grid{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 50px auto;
+    max-width: 1000px;
+  }
   .feature-card {
     background-color: #161b22;
     padding: 20px;

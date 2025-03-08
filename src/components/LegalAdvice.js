@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { FaMicrophone, FaBookmark, FaSync, FaFileAlt, FaCommentDots, FaBalanceScale, FaExclamationTriangle, FaGlobe, FaGraduationCap, FaShieldAlt, FaUserSecret } from "react-icons/fa";
-import { Card } from "@mui/material";   // Ensure correct imports
-import { Input } from "@mui/material";
-import {Button} from "@mui/material";   // Use this path if LegalAdvice.js is inside src/components/
-
+import {
+  FaMicrophone,
+  FaBookmark,
+  FaSync,
+  FaFileAlt,
+  FaCommentDots,
+  FaBalanceScale,
+  FaExclamationTriangle,
+  FaGlobe,
+  FaGraduationCap,
+  FaShieldAlt,
+  FaUserSecret,
+} from "react-icons/fa";
+import { Card, Input, Button } from "@mui/material";
 
 const LegalAdvice = () => {
   const [query, setQuery] = useState("");
@@ -32,91 +41,192 @@ const LegalAdvice = () => {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-6">
-      <h1 className="text-blue-300 text-3xl font-bold text-center">AI-Powered Legal Assistance</h1>
-      <p className="text-gray-300 text-center mt-2">Get AI-generated legal insights, document analysis, and more.</p>
+    <div
+      style={{
+        backgroundColor: "#1a1a1a",
+        minHeight: "100vh",
+        color: "white",
+        padding: "24px",
+      }}
+    >
+      <h1
+        style={{
+          color: "#90CAF9",
+          fontSize: "24px",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
+        AI-Powered Legal Assistance
+      </h1>
+      <p style={{ color: "#B0BEC5", textAlign: "center", marginTop: "8px" }}>
+        Get AI-generated legal insights, document analysis, and more.
+      </p>
 
-      <div className="mt-6 flex justify-center gap-2">
+      <div
+        style={{
+          marginTop: "24px",
+          display: "flex",
+          justifyContent: "center",
+          gap: "12px",
+        }}
+      >
         <Input
-          className="w-1/2 bg-gray-800 text-white border border-gray-700"
+          style={{
+            width: "50%",
+            backgroundColor: "#333",
+            color: "white",
+            border: "1px solid #555",
+            padding: "8px",
+          }}
           placeholder="Enter your legal question..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <Button className="bg-blue-500 hover:scale-105" onClick={handleSearch}>
-          {loading ? <FaSync className="animate-spin" /> : "Get Advice"}
+        <Button
+          style={{
+            backgroundColor: "#2196F3",
+            color: "white",
+            padding: "10px",
+          }}
+          onClick={handleSearch}
+        >
+          {loading ? (
+            <FaSync style={{ animation: "spin 1s linear infinite" }} />
+          ) : (
+            "Get Advice"
+          )}
         </Button>
-        <Button className="bg-green-500 hover:scale-105" onClick={handleVoiceQuery}>
+        <Button
+          style={{
+            backgroundColor: "#4CAF50",
+            color: "white",
+            padding: "10px",
+          }}
+          onClick={handleVoiceQuery}
+        >
           <FaMicrophone />
         </Button>
-        <Button className="bg-yellow-500 hover:scale-105" onClick={saveQuery}>
+        <Button
+          style={{
+            backgroundColor: "#FFC107",
+            color: "white",
+            padding: "10px",
+          }}
+          onClick={saveQuery}
+        >
           <FaBookmark />
         </Button>
       </div>
 
-      {response && <p className="text-blue-400 text-center mt-4">{response}</p>}
+      {response && (
+        <p style={{ color: "#90CAF9", textAlign: "center", marginTop: "16px" }}>
+          {response}
+        </p>
+      )}
 
-      <div className="mt-6">
+      <div style={{ marginTop: "24px" }}>
         {savedQueries.length > 0 && (
           <div>
-            <h2 className="text-white text-xl font-bold">Saved Queries</h2>
-            <ul className="text-gray-300 mt-2">
+            <h2
+              style={{ color: "white", fontSize: "20px", fontWeight: "bold" }}
+            >
+              Saved Queries
+            </h2>
+            <ul style={{ color: "#B0BEC5", marginTop: "8px" }}>
               {savedQueries.map((q, index) => (
-                <li key={index} className="bg-gray-800 p-2 rounded mt-1">{q}</li>
+                <li
+                  key={index}
+                  style={{
+                    backgroundColor: "#333",
+                    padding: "8px",
+                    borderRadius: "6px",
+                    marginTop: "4px",
+                  }}
+                >
+                  {q}
+                </li>
               ))}
             </ul>
           </div>
         )}
       </div>
 
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card className="bg-gray-800 p-6 shadow-lg hover:scale-105">
-          <FaFileAlt className="text-blue-400 text-4xl mb-4" />
-          <h2 className="text-white text-xl font-bold">Legal Document Generator</h2>
-          <p className="text-gray-300 mt-2">Generate contracts, affidavits, and petitions automatically.</p>
-        </Card>
-
-        <Card className="bg-gray-800 p-6 shadow-lg hover:scale-105">
-          <FaCommentDots className="text-blue-400 text-4xl mb-4" />
-          <h2 className="text-white text-xl font-bold">Live AI & Lawyer Chat</h2>
-          <p className="text-gray-300 mt-2">AI chatbot and verified lawyers provide legal guidance.</p>
-        </Card>
-
-        <Card className="bg-gray-800 p-6 shadow-lg hover:scale-105">
-          <FaBalanceScale className="text-blue-400 text-4xl mb-4" />
-          <h2 className="text-white text-xl font-bold">Case Law Recommendations</h2>
-          <p className="text-gray-300 mt-2">Get AI-recommended relevant case laws and judgments.</p>
-        </Card>
-
-        <Card className="bg-gray-800 p-6 shadow-lg hover:scale-105">
-          <FaExclamationTriangle className="text-blue-400 text-4xl mb-4" />
-          <h2 className="text-white text-xl font-bold">Risk Assessment</h2>
-          <p className="text-gray-300 mt-2">AI predicts case success probability and risks.</p>
-        </Card>
-
-        <Card className="bg-gray-800 p-6 shadow-lg hover:scale-105">
-          <FaGlobe className="text-blue-400 text-4xl mb-4" />
-          <h2 className="text-white text-xl font-bold">Multi-Language Support</h2>
-          <p className="text-gray-300 mt-2">Access legal assistance in multiple languages.</p>
-        </Card>
-
-        <Card className="bg-gray-800 p-6 shadow-lg hover:scale-105">
-          <FaGraduationCap className="text-blue-400 text-4xl mb-4" />
-          <h2 className="text-white text-xl font-bold">Legal Education Hub</h2>
-          <p className="text-gray-300 mt-2">Learn legal terms, take quizzes, and watch educational videos.</p>
-        </Card>
-
-        <Card className="bg-gray-800 p-6 shadow-lg hover:scale-105">
-          <FaShieldAlt className="text-blue-400 text-4xl mb-4" />
-          <h2 className="text-white text-xl font-bold">Data Encryption & Privacy</h2>
-          <p className="text-gray-300 mt-2">Your legal queries and data are secured with encryption.</p>
-        </Card>
-
-        <Card className="bg-gray-800 p-6 shadow-lg hover:scale-105">
-          <FaUserSecret className="text-blue-400 text-4xl mb-4" />
-          <h2 className="text-white text-xl font-bold">Anonymous Mode</h2>
-          <p className="text-gray-300 mt-2">Ask legal questions without revealing your identity.</p>
-        </Card>
+      <div
+        style={{
+          marginTop: "40px",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "16px",
+        }}
+      >
+        {[
+          {
+            icon: FaFileAlt,
+            title: "Legal Document Generator",
+            desc: "Generate contracts, affidavits, and petitions automatically.",
+          },
+          {
+            icon: FaCommentDots,
+            title: "Live AI & Lawyer Chat",
+            desc: "AI chatbot and verified lawyers provide legal guidance.",
+          },
+          {
+            icon: FaBalanceScale,
+            title: "Case Law Recommendations",
+            desc: "Get AI-recommended relevant case laws and judgments.",
+          },
+          {
+            icon: FaExclamationTriangle,
+            title: "Risk Assessment",
+            desc: "AI predicts case success probability and risks.",
+          },
+          {
+            icon: FaGlobe,
+            title: "Multi-Language Support",
+            desc: "Access legal assistance in multiple languages.",
+          },
+          {
+            icon: FaGraduationCap,
+            title: "Legal Education Hub",
+            desc: "Learn legal terms, take quizzes, and watch educational videos.",
+          },
+          {
+            icon: FaShieldAlt,
+            title: "Data Encryption & Privacy",
+            desc: "Your legal queries and data are secured with encryption.",
+          },
+          {
+            icon: FaUserSecret,
+            title: "Anonymous Mode",
+            desc: "Ask legal questions without revealing your identity.",
+          },
+        ].map(({ icon: Icon, title, desc }, index) => (
+          <Card
+            key={index}
+            style={{
+              backgroundColor: "#333",
+              padding: "24px",
+              boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
+              transition: "transform 0.2s",
+              borderRadius: "10px",
+            }}
+          >
+            <Icon
+              style={{
+                color: "#90CAF9",
+                fontSize: "32px",
+                marginBottom: "12px",
+              }}
+            />
+            <h2
+              style={{ color: "white", fontSize: "18px", fontWeight: "bold" }}
+            >
+              {title}
+            </h2>
+            <p style={{ color: "#B0BEC5", marginTop: "8px" }}>{desc}</p>
+          </Card>
+        ))}
       </div>
     </div>
   );
