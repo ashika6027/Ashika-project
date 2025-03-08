@@ -30,7 +30,7 @@ export default function LandingPage() {
     <div className={`main-container ${darkMode ? "dark-mode" : ""}`}>
       {/* Navigation Bar */}
       <nav className="navbar">
-        <h1 className="logo">AI Legal Research</h1>
+        <h1 className="logo">AI- Legal Research</h1>
         <div className="nav-links">
           <Button className="nav-btn">
             <Link to="/">Home</Link>
