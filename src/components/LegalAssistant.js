@@ -36,102 +36,39 @@ export default function LegalAssistance() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-6">
-      <h1 className="text-blue-300 text-3xl font-bold text-center">AI Legal Assistance</h1>
-      <p className="text-gray-300 text-center mt-2">Get AI-powered legal advice, FAQs, and pro bono legal aid.</p>
+    <div style={{ background: "linear-gradient(to right, #141e30, #243b55)", minHeight: "100vh", color: "white", padding: "20px" }}>
+      <h1 style={{ color: "#66b2ff", fontSize: "28px", textAlign: "center", fontWeight: "bold" }}>AI Legal Assistance</h1>
+      <p style={{ color: "#ccc", textAlign: "center", marginTop: "10px" }}>Get AI-powered legal advice, FAQs, and pro bono legal aid.</p>
 
       {/* Search Section */}
-      <div className="mt-6 flex justify-center items-center space-x-3">
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "20px", gap: "10px" }}>
         <Input
-          className="w-1/2 bg-gray-800 text-white border border-gray-700 px-3 py-2"
+          style={{ backgroundColor: "#3b5268", color: "white", padding: "10px", width: "50%" }}
           placeholder="Ask a legal question..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <Button variant="contained" color="primary" onClick={handleSearch}>
-          Search
-        </Button>
-        <Button variant="contained" color="secondary" onClick={handleVoiceSearch}>
+        <Button variant="contained" style={{ backgroundColor: "#007bff" }} onClick={handleSearch}>Search</Button>
+        <Button variant="contained" style={{ backgroundColor: "#dc3545" }} onClick={handleVoiceSearch}>
           <FaMicrophone />
         </Button>
       </div>
-      {response && <p className="text-blue-400 text-center mt-4">{response}</p>}
+      {response && <p style={{ color: "#66b2ff", textAlign: "center", marginTop: "10px" }}>{response}</p>}
 
       {/* Features Section */}
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "20px", marginTop: "30px" }}>
         {/* AI Legal Document Generator */}
-        <Card sx={{ bgcolor: "gray.800", p: 3, boxShadow: 3 }}>
+        <Card style={{ backgroundColor: "#2a3b4f", padding: "20px", boxShadow: "3px 3px 10px rgba(0,0,0,0.3)" }}>
           <CardContent>
-            <FaFileAlt className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">AI Legal Document Generator</h2>
-            <p className="text-gray-300 mt-2">Generate contracts, affidavits, and more.</p>
-            <select className="w-full bg-gray-700 p-2 mt-2" value={documentType} onChange={(e) => setDocumentType(e.target.value)}>
+            <FaFileAlt style={{ color: "#66b2ff", fontSize: "32px", marginBottom: "10px" }} />
+            <h2 style={{ fontSize: "22px", fontWeight: "bold", color: "#ffffff" }}>AI Legal Document Generator</h2>
+            <p style={{ color: "#d1d5db", marginTop: "5px" }}>Generate contracts, affidavits, and more.</p>
+            <select style={{ width: "100%", backgroundColor: "#3b5268", padding: "10px", marginTop: "10px", color: "white" }} value={documentType} onChange={(e) => setDocumentType(e.target.value)}>
               <option value="contract">Contract</option>
               <option value="affidavit">Affidavit</option>
               <option value="petition">Petition</option>
             </select>
-            <Button variant="contained" color="primary" className="mt-2" onClick={handleDocumentGeneration}>
-              Generate
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Legal Aid Eligibility Checker */}
-        <Card sx={{ bgcolor: "gray.800", p: 3, boxShadow: 3 }}>
-          <CardContent>
-            <FaHandsHelping className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Legal Aid Eligibility Checker</h2>
-            <p className="text-gray-300 mt-2">Check if you qualify for free legal aid.</p>
-            <Button variant="contained" color="primary" className="mt-2" onClick={handleLegalAidCheck}>
-              Check Now
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Case Risk Assessment */}
-        <Card sx={{ bgcolor: "gray.800", p: 3, boxShadow: 3 }}>
-          <CardContent>
-            <FaBalanceScale className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">AI-Powered Case Risk Assessment</h2>
-            <p className="text-gray-300 mt-2">Get a success probability score for your case.</p>
-            <Button variant="contained" color="primary" className="mt-2" onClick={handleCaseRiskAssessment}>
-              Analyze
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Legal Glossary */}
-        <Card sx={{ bgcolor: "gray.800", p: 3, boxShadow: 3 }}>
-          <CardContent>
-            <FaBook className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Legal Glossary & Education Hub</h2>
-            <p className="text-gray-300 mt-2">Learn about legal terms and rights.</p>
-          </CardContent>
-        </Card>
-
-        {/* Multi-Language Support */}
-        <Card sx={{ bgcolor: "gray.800", p: 3, boxShadow: 3 }}>
-          <CardContent>
-            <FaLanguage className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Multi-Language Support</h2>
-            <p className="text-gray-300 mt-2">Access legal information in multiple languages.</p>
-            <select className="w-full bg-gray-700 p-2 mt-2" value={language} onChange={(e) => setLanguage(e.target.value)}>
-              <option value="English">English</option>
-              <option value="Hindi">Hindi</option>
-              <option value="Spanish">Spanish</option>
-            </select>
-          </CardContent>
-        </Card>
-
-        {/* Emergency Legal Help */}
-        <Card sx={{ bgcolor: "gray.800", p: 3, boxShadow: 3 }}>
-          <CardContent>
-            <FaExclamationTriangle className="text-red-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Emergency Legal Help</h2>
-            <p className="text-gray-300 mt-2">Quickly connect with legal aid services.</p>
-            <Button variant="contained" color="error" className="mt-2" onClick={handleEmergencyHelp}>
-              Get Help
-            </Button>
+            <Button variant="contained" style={{ marginTop: "10px", backgroundColor: "#007bff" }} onClick={handleDocumentGeneration}>Generate</Button>
           </CardContent>
         </Card>
       </div>

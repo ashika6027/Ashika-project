@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { Mic, Send, Sun, Moon, BookOpen } from "lucide-react";
+import { Mic, Send, Sun, Moon } from "lucide-react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const genAI = new GoogleGenerativeAI("AIzaSyDNtphWrCFa3EwsPglUWWqjkjxH8c1bfTM");
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 export default function LegalChatbot() {
   const [query, setQuery] = useState("");
@@ -11,14 +15,30 @@ export default function LegalChatbot() {
   ]);
   const [darkMode, setDarkMode] = useState(true);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (query.trim() === "") return;
+    const userMessage = { type: "user", text: query };
     setMessages([
       ...messages,
-      { type: "user", text: query },
-      { type: "ai", text: "Analyzing your query..." },
+      userMessage,
     ]);
     setQuery("");
+
+    try {
+      const prompt = `You are a legal assistant. Answer only legal-related queries. If the query is not legal-related, respond with 'I can only assist with legal matters.' Query: ${query}`;
+      const result = await model.generateContent(prompt);
+      const aiResponse =
+        result.response.text() || "Sorry, I couldn't process your request.";
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: "ai", text: aiResponse },
+      ]);
+    } catch (error) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: "ai", text: "Error fetching response. Please try again." },
+      ]);
+    }
   };
 
   return (
@@ -26,9 +46,7 @@ export default function LegalChatbot() {
       style={{
         backgroundColor: darkMode ? "#1a1a1a" : "#f3f3f3",
         color: darkMode ? "white" : "black",
-        minHeight: "100vh",
-        padding: "24px",
-        transition: "all 0.3s",
+        height: "100vh",
         display: "flex",
         flexDirection: "column",
       }}
@@ -38,7 +56,7 @@ export default function LegalChatbot() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          paddingBottom: "16px",
+          padding: "16px",
         }}
       >
         <h1 style={{ fontSize: "24px", fontWeight: "bold", color: "#66b2ff" }}>
@@ -55,51 +73,35 @@ export default function LegalChatbot() {
           )}
         </button>
       </div>
-      <div
-        style={{
-          flexGrow: 1,
-          maxWidth: "600px",
-          margin: "0 auto",
-          backgroundColor: darkMode ? "#333" : "#fff",
-          padding: "16px",
-          borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-          overflowY: "auto",
-        }}
-      >
-        <div style={{ maxHeight: "400px", overflowY: "auto", padding: "16px" }}>
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              style={{
-                padding: "8px",
-                borderRadius: "8px",
-                maxWidth: "75%",
-                backgroundColor: msg.type === "user" ? "#007bff" : "#555",
-                color: "white",
-                margin:
-                  msg.type === "user" ? "8px 0 8px auto" : "8px auto 8px 0",
-              }}
-            >
-              {msg.text}
-            </div>
-          ))}
-        </div>
+      <div style={{ flexGrow: 1, padding: "16px", overflowY: "auto" }}>
+        {messages.map((msg, index) => (
+          <div
+            key={index}
+            style={{
+              padding: "8px",
+              borderRadius: "8px",
+              width: "max-content",
+              maxWidth: "50%",
+              backgroundColor: msg.type === "user" ? "#007bff" : "#555",
+              color: "white",
+              margin: msg.type === "user" ? "8px 0 8px auto" : "8px auto 8px 0",
+            }}
+          >
+            {msg.text}
+          </div>
+        ))}
       </div>
       <div
         style={{
           position: "fixed",
-          bottom: "16px",
-          left: "50%",
-          transform: "translateX(-50%)",
+          bottom: "0",
+          left: "0",
           width: "100%",
-          maxWidth: "600px",
           display: "flex",
           gap: "8px",
           backgroundColor: darkMode ? "#222" : "#f9f9f9",
           padding: "12px",
-          borderRadius: "8px",
-          boxShadow: "0 -2px 6px rgba(0, 0, 0, 0.1)",
+          borderTop: "1px solid #ccc",
         }}
       >
         <input

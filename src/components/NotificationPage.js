@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, CardContent } from "@mui/material";  // Removed unused imports
+import { Card, CardContent } from "@mui/material";  
 import { FaBell, FaCalendarAlt, FaFileAlt, FaEnvelope, FaGavel } from "react-icons/fa";
 
 export default function CaseTrackingNotifications() {
@@ -11,20 +11,44 @@ export default function CaseTrackingNotifications() {
   ]);
   
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-6">
-      <h1 className="text-blue-300 text-3xl font-bold text-center">Case Tracking & Notifications</h1>
-      <p className="text-gray-300 text-center mt-2">Track your case progress in real-time and stay updated.</p>
+    <div style={{ 
+      background: "linear-gradient(to right, #141e30, #243b55)", 
+      minHeight: "100vh", 
+      color: "white", 
+      padding: "24px" 
+    }}>
+      <h1 style={{ color: "#66b2ff", fontSize: "24px", fontWeight: "bold", textAlign: "center" }}>
+        Case Tracking & Notifications
+      </h1>
+      <p style={{ color: "#D1D5DB", textAlign: "center", marginTop: "8px" }}>
+        Track your case progress in real-time and stay updated.
+      </p>
       
       {/* Case Progress Timeline */}
-      <div className="mt-8 mx-auto max-w-3xl">
+      <div style={{ marginTop: "32px", marginLeft: "auto", marginRight: "auto", maxWidth: "600px" }}>
         {caseUpdates.map((update, index) => (
-          <Card key={index} sx={{ backgroundColor: "rgb(31, 41, 55)", color: "white", marginBottom: "16px", padding: "16px", boxShadow: "lg" }}>
-            <CardContent sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Card 
+            key={index} 
+            style={{ 
+              backgroundColor: "#2a3b4f", 
+              color: "white", 
+              marginBottom: "16px", 
+              padding: "16px", 
+              boxShadow: "2px 2px 10px rgba(0,0,0,0.3)" 
+            }}>
+            <CardContent style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
                 <h2>{update.stage}</h2>
-                <p className="text-gray-300">Scheduled Date: {update.date}</p>
+                <p style={{ color: "#D1D5DB" }}>Scheduled Date: {update.date}</p>
               </div>
-              <span className={`px-3 py-1 rounded-full text-sm ${update.status === "Completed" ? "bg-green-500" : update.status === "Pending" ? "bg-yellow-500" : "bg-blue-500"}`}>
+              <span style={{ 
+                padding: "6px 12px", 
+                borderRadius: "16px", 
+                fontSize: "14px", 
+                backgroundColor: update.status === "Completed" ? "#34D399" 
+                  : update.status === "Pending" ? "#FBBF24" 
+                  : "#3B82F6" 
+              }}>
                 {update.status}
               </span>
             </CardContent>
@@ -33,46 +57,39 @@ export default function CaseTrackingNotifications() {
       </div>
 
       {/* Interactive Features */}
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card sx={{ backgroundColor: "rgb(31, 41, 55)", padding: "24px", boxShadow: "lg", cursor: "pointer", "&:hover": { transform: "scale(1.05)" } }} onClick={() => alert("View upcoming hearings in your calendar.") }>
-          <CardContent>
-            <FaCalendarAlt className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Case Calendar</h2>
-            <p className="text-gray-300 mt-2">View your scheduled hearings & deadlines.</p>
-          </CardContent>
-        </Card>
-
-        <Card sx={{ backgroundColor: "rgb(31, 41, 55)", padding: "24px", boxShadow: "lg", cursor: "pointer", "&:hover": { transform: "scale(1.05)" } }} onClick={() => alert("Manage and view case documents.") }>
-          <CardContent>
-            <FaFileAlt className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Document Repository</h2>
-            <p className="text-gray-300 mt-2">Access all case-related files.</p>
-          </CardContent>
-        </Card>
-
-        <Card sx={{ backgroundColor: "rgb(31, 41, 55)", padding: "24px", boxShadow: "lg", cursor: "pointer", "&:hover": { transform: "scale(1.05)" } }} onClick={() => alert("Receive alerts for case updates.") }>
-          <CardContent>
-            <FaBell className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Smart Notifications</h2>
-            <p className="text-gray-300 mt-2">Get reminders for hearings & updates.</p>
-          </CardContent>
-        </Card>
-
-        <Card sx={{ backgroundColor: "rgb(31, 41, 55)", padding: "24px", boxShadow: "lg", cursor: "pointer", "&:hover": { transform: "scale(1.05)" } }} onClick={() => alert("Directly communicate with your lawyer.") }>
-          <CardContent>
-            <FaEnvelope className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Lawyer Communication</h2>
-            <p className="text-gray-300 mt-2">Message your lawyer or court authorities.</p>
-          </CardContent>
-        </Card>
-
-        <Card sx={{ backgroundColor: "rgb(31, 41, 55)", padding: "24px", boxShadow: "lg", cursor: "pointer", "&:hover": { transform: "scale(1.05)" } }} onClick={() => alert("AI-generated legal reminders for deadlines.") }>
-          <CardContent>
-            <FaGavel className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">AI Legal Reminders</h2>
-            <p className="text-gray-300 mt-2">Never miss an important date.</p>
-          </CardContent>
-        </Card>
+      <div style={{ 
+        marginTop: "40px", 
+        display: "grid", 
+        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", 
+        gap: "16px" 
+      }}>
+        {[
+          { icon: <FaCalendarAlt size={40} color="#66b2ff" />, title: "Case Calendar", desc: "View your scheduled hearings & deadlines.", action: () => alert("View upcoming hearings in your calendar.") },
+          { icon: <FaFileAlt size={40} color="#66b2ff" />, title: "Document Repository", desc: "Access all case-related files.", action: () => alert("Manage and view case documents.") },
+          { icon: <FaBell size={40} color="#66b2ff" />, title: "Smart Notifications", desc: "Get reminders for hearings & updates.", action: () => alert("Receive alerts for case updates.") },
+          { icon: <FaEnvelope size={40} color="#66b2ff" />, title: "Lawyer Communication", desc: "Message your lawyer or court authorities.", action: () => alert("Directly communicate with your lawyer.") },
+          { icon: <FaGavel size={40} color="#66b2ff" />, title: "AI Legal Reminders", desc: "Never miss an important date.", action: () => alert("AI-generated legal reminders for deadlines.") }
+        ].map((feature, index) => (
+          <Card 
+            key={index} 
+            style={{ 
+              backgroundColor: "#3b5268", 
+              padding: "24px", 
+              boxShadow: "2px 2px 10px rgba(0,0,0,0.3)", 
+              cursor: "pointer", 
+              transition: "transform 0.3s" 
+            }} 
+            onClick={feature.action}
+            onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+          >
+            <CardContent>
+              <div style={{ marginBottom: "12px" }}>{feature.icon}</div>
+              <h2 style={{ color: "white", fontSize: "18px", fontWeight: "bold" }}>{feature.title}</h2>
+              <p style={{ color: "#D1D5DB", marginTop: "8px" }}>{feature.desc}</p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </div>
   );

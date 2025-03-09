@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, CardContent, Input } from "@mui/material";
+import { Button, Card, CardContent, Input, Typography } from "@mui/material";
 import { FaVideo, FaMicrophone, FaFileUpload, FaComments, FaUserShield } from "react-icons/fa";
 
 export default function LiveVirtualCourt() {
@@ -26,76 +26,115 @@ export default function LiveVirtualCourt() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-6">
-      <h1 className="text-blue-300 text-3xl font-bold text-center">Live Virtual Court Session</h1>
-      <p className="text-gray-300 text-center mt-2">Participate in live virtual hearings with AI-powered features.</p>
-      
-      <div className="flex justify-center mt-6">
+    <div style={{ 
+      minHeight: "100vh", 
+      background: "linear-gradient(to right, #141e30, #243b55)", 
+      color: "white", 
+      padding: "20px" 
+    }}>
+      <Typography variant="h4" align="center" style={{ color: "#4db8ff", fontWeight: "bold" }}>
+        Live Virtual Court Session
+      </Typography>
+      <Typography variant="body1" align="center" style={{ color: "#b0c4de", marginTop: "10px" }}>
+        Participate in live virtual hearings with AI-powered features.
+      </Typography>
+
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
         {!isLive ? (
-          <Button className="bg-red-500 hover:scale-105" onClick={startSession}>
+          <Button 
+            variant="contained" 
+            style={{ backgroundColor: "#007BFF", color: "white", fontWeight: "bold" }}
+            onClick={startSession}
+          >
             Start Live Session
           </Button>
         ) : (
-          <Button className="bg-gray-700 hover:scale-105" onClick={stopSession}>
+          <Button 
+            variant="contained" 
+            style={{ backgroundColor: "#444", color: "white", fontWeight: "bold" }}
+            onClick={stopSession}
+          >
             End Session
           </Button>
         )}
       </div>
-      
+
       {isLive && (
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="bg-gray-800 p-4 shadow-lg">
-            <FaVideo className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Live Video</h2>
-            <p className="text-gray-300 mt-2">Real-time courtroom session with secure video conferencing.</p>
+        <div style={{ marginTop: "30px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "20px" }}>
+          <Card style={{ backgroundColor: "#2a3b4f", padding: "20px", textAlign: "center" }}>
+            <FaVideo size={40} style={{ color: "#4db8ff" }} />
+            <Typography variant="h6" style={{ color: "#ffffff", marginTop: "10px" }}>Live Video</Typography>
+            <Typography variant="body2" style={{ color: "#d3d3d3", marginTop: "5px" }}>
+              Real-time courtroom session with secure video conferencing.
+            </Typography>
           </Card>
 
-          <Card className="bg-gray-800 p-4 shadow-lg">
-            <FaMicrophone className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Automated Transcription</h2>
-            <p className="text-gray-300 mt-2">AI-generated transcripts of the court proceedings.</p>
+          <Card style={{ backgroundColor: "#2a3b4f", padding: "20px", textAlign: "center" }}>
+            <FaMicrophone size={40} style={{ color: "#4db8ff" }} />
+            <Typography variant="h6" style={{ color: "#ffffff", marginTop: "10px" }}>Automated Transcription</Typography>
+            <Typography variant="body2" style={{ color: "#d3d3d3", marginTop: "5px" }}>
+              AI-generated transcripts of the court proceedings.
+            </Typography>
           </Card>
 
-          <Card className="bg-gray-800 p-4 shadow-lg">
-            <FaComments className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Live Chat & Notes</h2>
-            <p className="text-gray-300 mt-2">Chat with lawyers, judges, and litigants in real time.</p>
-            <div className="mt-4">
+          <Card style={{ backgroundColor: "#2a3b4f", padding: "20px", textAlign: "center" }}>
+            <FaComments size={40} style={{ color: "#4db8ff" }} />
+            <Typography variant="h6" style={{ color: "#ffffff", marginTop: "10px" }}>Live Chat & Notes</Typography>
+            <Typography variant="body2" style={{ color: "#d3d3d3", marginTop: "5px" }}>
+              Chat with lawyers, judges, and litigants in real time.
+            </Typography>
+
+            <div style={{ marginTop: "10px" }}>
               <Input
-                className="bg-gray-700 text-white border border-gray-600"
                 placeholder="Type your message..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                style={{ backgroundColor: "#3b4f66", color: "white", padding: "10px", borderRadius: "5px", width: "100%" }}
               />
-              <Button className="mt-2 bg-blue-500 hover:scale-105" onClick={sendMessage}>Send</Button>
+              <Button 
+                variant="contained" 
+                style={{ marginTop: "10px", backgroundColor: "#007BFF", color: "white" }}
+                onClick={sendMessage}
+              >
+                Send
+              </Button>
             </div>
-            <div className="mt-2 text-gray-300">
+
+            <div style={{ marginTop: "10px", color: "#b0c4de" }}>
               {messages.map((msg, index) => (
-                <p key={index}>- {msg}</p>
+                <Typography key={index} variant="body2">- {msg}</Typography>
               ))}
             </div>
           </Card>
         </div>
       )}
-      
+
       {isLive && (
-        <div className="mt-8 flex flex-col md:flex-row gap-6">
-          <Card className="bg-gray-800 p-4 shadow-lg w-full md:w-1/2">
-            <FaFileUpload className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Upload Case Documents</h2>
-            <p className="text-gray-300 mt-2">Submit legal documents for review.</p>
-            <input type="file" className="mt-2" onChange={uploadDocument} />
-            <div className="mt-2 text-gray-300">
+        <div style={{ marginTop: "30px", display: "flex", flexDirection: "row", gap: "20px" }}>
+          <Card style={{ backgroundColor: "#2a3b4f", padding: "20px", textAlign: "center", flex: 1 }}>
+            <FaFileUpload size={40} style={{ color: "#4db8ff" }} />
+            <Typography variant="h6" style={{ color: "#ffffff", marginTop: "10px" }}>Upload Case Documents</Typography>
+            <Typography variant="body2" style={{ color: "#d3d3d3", marginTop: "5px" }}>
+              Submit legal documents for review.
+            </Typography>
+            <input 
+              type="file" 
+              style={{ marginTop: "10px", backgroundColor: "#4db8ff", padding: "5px", borderRadius: "5px" }} 
+              onChange={uploadDocument} 
+            />
+            <div style={{ marginTop: "10px", color: "#b0c4de" }}>
               {documents.map((doc, index) => (
-                <p key={index}>📄 {doc}</p>
+                <Typography key={index} variant="body2">📄 {doc}</Typography>
               ))}
             </div>
           </Card>
 
-          <Card className="bg-gray-800 p-4 shadow-lg w-full md:w-1/2">
-            <FaUserShield className="text-blue-400 text-4xl mb-4" />
-            <h2 className="text-white text-xl font-bold">Secure & Encrypted</h2>
-            <p className="text-gray-300 mt-2">All court proceedings are encrypted for privacy.</p>
+          <Card style={{ backgroundColor: "#2a3b4f", padding: "20px", textAlign: "center", flex: 1 }}>
+            <FaUserShield size={40} style={{ color: "#4db8ff" }} />
+            <Typography variant="h6" style={{ color: "#ffffff", marginTop: "10px" }}>Secure & Encrypted</Typography>
+            <Typography variant="body2" style={{ color: "#d3d3d3", marginTop: "5px" }}>
+              All court proceedings are encrypted for privacy.
+            </Typography>
           </Card>
         </div>
       )}

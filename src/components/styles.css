@@ -18,7 +18,9 @@ body {
     top: 0;
     z-index: 1000;
   }
-  
+  #link{
+    text-decoration: none;
+  }
   .navbar .logo {
     font-size: 24px;
     font-weight: bold;
@@ -147,4 +149,19 @@ body {
     font-size: 14px;
     margin-top: 5px;
   }
-  
+  /* Variable-based styling */
+:root {
+  --card-bg: #ffffff; /* Default light mode */
+  --input-bg: #ffffff;
+}
+
+/* Feature Cards */
+.feature-card {
+  background-color: var(--card-bg) !important;
+}
+
+/* Inputs and Saved Queries */
+.search-box,
+.saved-queries {
+  background-color: var(--input-bg) !important;
+}

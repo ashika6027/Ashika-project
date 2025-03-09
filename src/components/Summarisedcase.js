@@ -1,83 +1,145 @@
 import { useState } from "react";
-import { Card, CardContent, CardActions, Typography, TextField, Button } from "@mui/material";
-import { FaSearch, FaDownload, FaBookmark } from "react-icons/fa";
+import { Mic, Send, Sun, Moon } from "lucide-react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export default function SummarizedCaseLaw() {
+const genAI = new GoogleGenerativeAI("AIzaSyDNtphWrCFa3EwsPglUWWqjkjxH8c1bfTM");
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+export default function LegalChatbot() {
   const [query, setQuery] = useState("");
-  const [summary, setSummary] = useState(null);
-  const [bookmarks, setBookmarks] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      type: "ai",
+      text: "Hello! How can I assist you with case law summaries today?",
+    },
+  ]);
+  const [darkMode, setDarkMode] = useState(true);
 
-  const handleSearch = async () => {
-    // Placeholder for AI-generated case law summary
-    setSummary({
-      title: "Landmark Supreme Court Case on Privacy",
-      summary: "This case established the right to privacy as a fundamental right under the Constitution...",
-      citation: "2023 SC 4567",
-    });
-  };
+  const sendMessage = async () => {
+    if (query.trim() === "") return;
+    const userMessage = { type: "user", text: query };
+    setMessages([
+      ...messages,
+      userMessage,
+    ]);
+    setQuery("");
 
-  const handleBookmark = () => {
-    if (summary && !bookmarks.includes(summary)) {
-      setBookmarks([...bookmarks, summary]);
+    try {
+      const prompt = `You are a legal assistant specializing in case law summaries. Summarize the case law relevant to: ${query}. If the query is not related to case law, respond with 'I can only provide case law summaries.'`;
+      const result = await model.generateContent(prompt);
+      const aiResponse =
+        result.response.text() || "Sorry, I couldn't process your request.";
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: "ai", text: aiResponse },
+      ]);
+    } catch (error) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: "ai", text: "Error fetching response. Please try again." },
+      ]);
     }
   };
 
   return (
-    <div style={{ backgroundColor: "#121212", minHeight: "100vh", padding: "20px", color: "white" }}>
-      <Typography variant="h3" align="center" color="primary">Summarized Case Laws</Typography>
-      <Typography variant="subtitle1" align="center" color="gray">Quick AI-powered case law summaries.</Typography>
-
-      {/* Search Bar */}
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-        <TextField
-          variant="outlined"
+    <div
+      style={{
+        backgroundColor: darkMode ? "#1a1a1a" : "#f3f3f3",
+        color: darkMode ? "white" : "black",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "16px",
+        }}
+      >
+        <h1 style={{ fontSize: "24px", fontWeight: "bold", color: "#66b2ff" }}>
+          AI Case Law Summarizer
+        </h1>
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          style={{ background: "none", border: "none", cursor: "pointer" }}
+        >
+          {darkMode ? (
+            <Sun style={{ color: "#ffcc00" }} />
+          ) : (
+            <Moon style={{ color: "#555" }} />
+          )}
+        </button>
+      </div>
+      <div style={{ flexGrow: 1, padding: "16px", overflowY: "auto" }}>
+        {messages.map((msg, index) => (
+          <div
+            key={index}
+            style={{
+              padding: "8px",
+              borderRadius: "8px",
+              maxWidth: "75%",
+              backgroundColor: msg.type === "user" ? "#007bff" : "#555",
+              color: "white",
+              margin: msg.type === "user" ? "8px 0 8px auto" : "8px auto 8px 0",
+            }}
+          >
+            {msg.text}
+          </div>
+        ))}
+      </div>
+      <div
+        style={{
+          position: "fixed",
+          bottom: "0",
+          left: "0",
+          width: "100%",
+          display: "flex",
+          gap: "8px",
+          backgroundColor: darkMode ? "#222" : "#f9f9f9",
+          padding: "12px",
+          borderTop: "1px solid #ccc",
+        }}
+      >
+        <input
+          style={{
+            flexGrow: 1,
+            padding: "12px",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+            backgroundColor: darkMode ? "#555" : "#fff",
+            color: darkMode ? "white" : "black",
+          }}
           placeholder="Enter case citation or keyword..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          sx={{ backgroundColor: "#333", color: "white", width: "50%" }}
-          InputProps={{ style: { color: "white" } }}
         />
-        <Button variant="contained" color="primary" sx={{ marginLeft: "10px" }} onClick={handleSearch}>
-          <FaSearch style={{ marginRight: "5px" }} /> Search
-        </Button>
+        <button
+          style={{
+            backgroundColor: "#007bff",
+            border: "none",
+            padding: "12px",
+            borderRadius: "8px",
+            cursor: "pointer",
+          }}
+          onClick={sendMessage}
+        >
+          <Send style={{ color: "white" }} />
+        </button>
+        <button
+          style={{
+            backgroundColor: "#555",
+            border: "none",
+            padding: "12px",
+            borderRadius: "8px",
+            cursor: "pointer",
+          }}
+        >
+          <Mic style={{ color: "white" }} />
+        </button>
       </div>
-
-      {/* Case Summary Section */}
-      {summary && (
-        <Card sx={{ backgroundColor: "#1e1e1e", marginTop: "20px", padding: "20px", color: "white" }}>
-          <CardContent>
-            <Typography variant="h5">{summary.title}</Typography>
-            <Typography variant="body1" sx={{ marginTop: "10px", color: "#ccc" }}>{summary.summary}</Typography>
-            <Typography variant="body2" sx={{ marginTop: "10px", color: "#66b2ff" }}>Citation: {summary.citation}</Typography>
-          </CardContent>
-          <CardActions>
-            <Button variant="contained" sx={{ backgroundColor: "#444", marginRight: "10px" }}>
-              <FaDownload style={{ marginRight: "5px" }} /> Download
-            </Button>
-            <Button variant="contained" color="warning" onClick={handleBookmark}>
-              <FaBookmark style={{ marginRight: "5px" }} /> Bookmark
-            </Button>
-          </CardActions>
-        </Card>
-      )}
-
-      {/* Bookmarked Cases Section */}
-      {bookmarks.length > 0 && (
-        <div style={{ marginTop: "30px" }}>
-          <Typography variant="h4" color="primary">Bookmarked Cases</Typography>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "20px", marginTop: "20px" }}>
-            {bookmarks.map((caseLaw, index) => (
-              <Card key={index} sx={{ backgroundColor: "#1e1e1e", padding: "15px", color: "white" }}>
-                <CardContent>
-                  <Typography variant="h6">{caseLaw.title}</Typography>
-                  <Typography variant="body2" sx={{ marginTop: "10px", color: "#ccc" }}>{caseLaw.summary}</Typography>
-                  <Typography variant="body2" sx={{ marginTop: "10px", color: "#66b2ff" }}>Citation: {caseLaw.citation}</Typography>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

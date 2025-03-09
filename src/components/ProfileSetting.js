@@ -1,87 +1,166 @@
-import { useState } from "react";
-import { Card, CardContent, Typography, Button, TextField, MenuItem, Select, Box } from "@mui/material";
+import { useState, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  TextField,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { FaUser, FaLock, FaPalette, FaBell, FaGlobe } from "react-icons/fa";
 
 export default function UserProfileSettings() {
   const [username, setUsername] = useState("JohnDoe");
   const [email, setEmail] = useState("johndoe@example.com");
-  const [theme, setTheme] = useState("light");
-  const [language, setLanguage] = useState("English");
+  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
+  const [language, setLanguage] = useState(() => localStorage.getItem("language") || "English");
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.body.style.background =
+      theme === "dark"
+        ? "linear-gradient(to right, #141e30, #243b55)"
+        : theme === "blue"
+        ? "linear-gradient(to right, #003366, #00509E)"
+        : "#ffffff";
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem("language", language);
+  }, [language]);
 
   return (
-    <Box sx={{ bgcolor: "background.default", minHeight: "100vh", color: "white", display: "flex", p: 3 }}>
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        padding: "20px",
+        color: "white",
+        background: theme === "dark"
+          ? "linear-gradient(to right, #141e30, #243b55)"
+          : theme === "blue"
+          ? "linear-gradient(to right, #003366, #00509E)"
+          : "#ffffff",
+      }}
+    >
       {/* Sidebar Navigation */}
-      <Box sx={{ width: "25%", bgcolor: "#2D2D2D", p: 3, borderRadius: 2 }}>
-        <Typography variant="h5" sx={{ color: "#90CAF9", fontWeight: "bold", mb: 3 }}>
+      <div style={{ width: "25%", backgroundColor: "#2a3b4f", padding: "20px", borderRadius: "8px" }}>
+        <Typography variant="h5" style={{ color: "#66b2ff", fontWeight: "bold", marginBottom: "20px" }}>
           Settings
         </Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <Typography sx={{ cursor: "pointer", "&:hover": { color: "#64B5F6" } }}>Profile</Typography>
-          <Typography sx={{ cursor: "pointer", "&:hover": { color: "#64B5F6" } }}>Security</Typography>
-          <Typography sx={{ cursor: "pointer", "&:hover": { color: "#64B5F6" } }}>Appearance</Typography>
-          <Typography sx={{ cursor: "pointer", "&:hover": { color: "#64B5F6" } }}>Notifications</Typography>
-          <Typography sx={{ cursor: "pointer", "&:hover": { color: "#64B5F6" } }}>Privacy</Typography>
-        </Box>
-      </Box>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {["Profile", "Security", "Appearance", "Notifications", "Privacy"].map((item) => (
+            <Typography
+              key={item}
+              style={{ cursor: "pointer", transition: "color 0.2s", color: "white" }}
+              onMouseOver={(e) => (e.target.style.color = "#66b2ff")}
+              onMouseOut={(e) => (e.target.style.color = "white")}
+            >
+              {item}
+            </Typography>
+          ))}
+        </div>
+      </div>
 
       {/* Main Content */}
-      <Box sx={{ width: "75%", pl: 4 }}>
-        {/* Profile Section */}
-        <Card sx={{ bgcolor: "#424242", mb: 3, p: 3 }}>
-          <CardContent>
-            <FaUser size={30} color="#90CAF9" />
-            <Typography variant="h6" sx={{ color: "white", mt: 2 }}>Profile Information</Typography>
-            <TextField fullWidth variant="outlined" label="Username" value={username} onChange={(e) => setUsername(e.target.value)} sx={{ mt: 2, bgcolor: "#333", borderRadius: 1, input: { color: "white" } }} />
-            <TextField fullWidth variant="outlined" label="Email" value={email} InputProps={{ readOnly: true }} sx={{ mt: 2, bgcolor: "#333", borderRadius: 1, input: { color: "white" } }} />
-            <Button variant="contained" sx={{ mt: 3, bgcolor: "#2196F3", ":hover": { bgcolor: "#1976D2" } }}>Save Changes</Button>
-          </CardContent>
-        </Card>
-
-        {/* Security Section */}
-        <Card sx={{ bgcolor: "#424242", mb: 3, p: 3 }}>
-          <CardContent>
-            <FaLock size={30} color="#90CAF9" />
-            <Typography variant="h6" sx={{ color: "white", mt: 2 }}>Security</Typography>
-            <Button variant="contained" sx={{ mt: 2, bgcolor: "#E53935", ":hover": { bgcolor: "#D32F2F" } }}>Enable Two-Factor Authentication</Button>
-            <Button variant="outlined" sx={{ mt: 2, color: "white", borderColor: "gray", ":hover": { borderColor: "white" } }}>Manage Sessions</Button>
-          </CardContent>
-        </Card>
-
-        {/* Appearance Section */}
-        <Card sx={{ bgcolor: "#424242", mb: 3, p: 3 }}>
-          <CardContent>
-            <FaPalette size={30} color="#90CAF9" />
-            <Typography variant="h6" sx={{ color: "white", mt: 2 }}>Appearance</Typography>
-            <Select fullWidth value={theme} onChange={(e) => setTheme(e.target.value)} sx={{ mt: 2, bgcolor: "#333", color: "white" }}>
-              <MenuItem value="light">Light</MenuItem>
-              <MenuItem value="dark">Dark</MenuItem>
-              <MenuItem value="blue">Blue</MenuItem>
-            </Select>
-          </CardContent>
-        </Card>
-
-        {/* Notifications Section */}
-        <Card sx={{ bgcolor: "#424242", mb: 3, p: 3 }}>
-          <CardContent>
-            <FaBell size={30} color="#90CAF9" />
-            <Typography variant="h6" sx={{ color: "white", mt: 2 }}>Notifications</Typography>
-            <Button variant="contained" sx={{ mt: 2, bgcolor: "#43A047", ":hover": { bgcolor: "#388E3C" } }}>Enable Email Alerts</Button>
-          </CardContent>
-        </Card>
-
-        {/* Language Section */}
-        <Card sx={{ bgcolor: "#424242", p: 3 }}>
-          <CardContent>
-            <FaGlobe size={30} color="#90CAF9" />
-            <Typography variant="h6" sx={{ color: "white", mt: 2 }}>Language</Typography>
-            <Select fullWidth value={language} onChange={(e) => setLanguage(e.target.value)} sx={{ mt: 2, bgcolor: "#333", color: "white" }}>
-              <MenuItem value="English">English</MenuItem>
-              <MenuItem value="Spanish">Spanish</MenuItem>
-              <MenuItem value="French">French</MenuItem>
-            </Select>
-          </CardContent>
-        </Card>
-      </Box>
-    </Box>
+      <div style={{ width: "75%", paddingLeft: "32px" }}>
+        {[
+          {
+            icon: <FaUser size={30} color="#66b2ff" />,
+            title: "Profile Information",
+            content: (
+              <>
+                <TextField
+                  fullWidth
+                  label="Username"
+                  variant="outlined"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  style={{ marginTop: "12px", backgroundColor: "#3b5268", borderRadius: "5px" }}
+                  InputLabelProps={{ style: { color: "#66b2ff" } }}
+                  InputProps={{ style: { color: "white" } }}
+                />
+                <TextField
+                  fullWidth
+                  label="Email"
+                  variant="outlined"
+                  value={email}
+                  InputProps={{ readOnly: true, style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "#66b2ff" } }}
+                  style={{ marginTop: "12px", backgroundColor: "#3b5268", borderRadius: "5px" }}
+                />
+                <Button variant="contained" style={{ marginTop: "16px", backgroundColor: "#66b2ff", color: "white" }}>
+                  Save Changes
+                </Button>
+              </>
+            ),
+          },
+          {
+            icon: <FaLock size={30} color="#66b2ff" />,
+            title: "Security",
+            content: (
+              <>
+                <Button variant="contained" style={{ marginTop: "12px", backgroundColor: "#E53935", color: "white" }}>
+                  Enable Two-Factor Authentication
+                </Button>
+                <Button variant="outlined" style={{ marginTop: "12px", color: "white", borderColor: "gray" }}>
+                  Manage Sessions
+                </Button>
+              </>
+            ),
+          },
+          {
+            icon: <FaPalette size={30} color="#66b2ff" />,
+            title: "Appearance",
+            content: (
+              <Select
+                fullWidth
+                value={theme}
+                onChange={(e) => setTheme(e.target.value)}
+                style={{ marginTop: "12px", backgroundColor: "#3b5268", color: "white" }}
+              >
+                <MenuItem value="light">Light</MenuItem>
+                <MenuItem value="dark">Dark</MenuItem>
+                <MenuItem value="blue">Blue</MenuItem>
+              </Select>
+            ),
+          },
+          {
+            icon: <FaBell size={30} color="#66b2ff" />,
+            title: "Notifications",
+            content: (
+              <Button variant="contained" style={{ marginTop: "12px", backgroundColor: "#43A047", color: "white" }}>
+                Enable Email Alerts
+              </Button>
+            ),
+          },
+          {
+            icon: <FaGlobe size={30} color="#66b2ff" />,
+            title: "Language",
+            content: (
+              <Select
+                fullWidth
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                style={{ marginTop: "12px", backgroundColor: "#3b5268", color: "white" }}
+              >
+                <MenuItem value="English">English</MenuItem>
+                <MenuItem value="Spanish">Spanish</MenuItem>
+                <MenuItem value="French">French</MenuItem>
+              </Select>
+            ),
+          },
+        ].map((section, index) => (
+          <Card key={index} style={{ backgroundColor: "#2a3b4f", marginBottom: "20px", padding: "20px", borderRadius: "8px" }}>
+            <CardContent>
+              {section.icon}
+              <Typography variant="h6" style={{ marginTop: "16px", color: "white" }}>{section.title}</Typography>
+              {section.content}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
   );
 }

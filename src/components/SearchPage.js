@@ -34,7 +34,7 @@ export default function CaseLawSearch() {
   return (
     <div
       style={{
-        backgroundColor: "#1a1a1a",
+        background: "linear-gradient(to right, #141e30, #243b55)",
         minHeight: "100vh",
         padding: "24px",
         color: "white",
@@ -65,7 +65,7 @@ export default function CaseLawSearch() {
         <Input
           style={{
             flex: 1,
-            backgroundColor: "#333",
+            backgroundColor: "#3b5268",
             color: "white",
             border: "1px solid #666",
             padding: "3px 15px",
@@ -94,7 +94,7 @@ export default function CaseLawSearch() {
           <motion.div key={index} whileHover={{ scale: 1.05 }}>
             <Card
               style={{
-                backgroundColor: "#333",
+                backgroundColor: "#2a3b4f", // Updated box color
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                 padding: "16px",
               }}
@@ -112,12 +112,12 @@ export default function CaseLawSearch() {
                 <p style={{ color: "#ccc" }}>
                   {caseItem.court} - {caseItem.date}
                 </p>
-                <p style={{ color: "#aaa", marginTop: "8px" }}>
+                <p style={{ color: "#ddd", marginTop: "8px" }}>
                   {caseItem.summary}
                 </p>
                 <p
                   style={{
-                    color: "#777",
+                    color: "#bbb",
                     marginTop: "8px",
                     fontStyle: "italic",
                   }}

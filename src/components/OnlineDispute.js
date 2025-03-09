@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, CardContent, TextField } from "@mui/material"; // Fixed import
+import { Button, Card, CardContent, TextField } from "@mui/material";
 import { FaRobot, FaPoll, FaFileUpload, FaSmile, FaBalanceScale, FaSearch } from "react-icons/fa";
 
 export default function OnlineDisputeResolution() {
@@ -18,88 +18,114 @@ export default function OnlineDisputeResolution() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-6">
-      <h1 className="text-blue-300 text-3xl font-bold text-center">
+    <div style={{ 
+      background: "linear-gradient(to right, #141e30, #243b55)", 
+      minHeight: "100vh", 
+      color: "white", 
+      padding: "20px" 
+    }}>
+      <h1 style={{ color: "#66b2ff", fontSize: "24px", fontWeight: "bold", textAlign: "center" }}>
         Online Dispute Resolution
       </h1>
-      <p className="text-gray-300 text-center mt-2">
+      <p style={{ color: "#d0d0d0", textAlign: "center", marginTop: "10px" }}>
         AI-driven mediation and dispute resolution.
       </p>
 
-      {/* Input Field */}
-      <div className="mt-6 flex justify-center">
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
         <TextField
           variant="outlined"
-          className="w-1/2"
           placeholder="Enter dispute details..."
           value={disputeDetails}
           onChange={(e) => setDisputeDetails(e.target.value)}
-          sx={{ bgcolor: "#1e293b", color: "white", borderRadius: 1 }} // MUI styling
+          style={{ 
+            backgroundColor: "#3b5268", 
+            color: "white", 
+            borderRadius: "5px", 
+            width: "50%" 
+          }}
+          InputProps={{ style: { color: "white" } }}
         />
         <Button
-          className="ml-2 bg-blue-500 hover:scale-105"
           onClick={handleResolve}
           variant="contained"
           startIcon={<FaSearch />}
+          style={{ 
+            marginLeft: "10px", 
+            backgroundColor: "#3b5268", 
+            color: "white",
+            transition: "background-color 0.3s"
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#2a3b4f"}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#3b5268"}
         >
           Resolve
         </Button>
       </div>
 
-      {/* Resolution Suggestion */}
       {resolution && (
-        <div className="mt-6 text-center">
-          <p className="text-blue-400 text-xl font-bold">
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <p style={{ color: "#66b2ff", fontSize: "18px", fontWeight: "bold" }}>
             Resolution Suggestion: {resolution.suggestion}
           </p>
-          <p className="text-gray-300 mt-2">Next Steps: {resolution.nextSteps}</p>
-          <p className="text-gray-300 mt-2">Sentiment Analysis: {sentiment}</p>
-          <p className="text-gray-300 mt-2">Resolution Score: {resolutionScore}/100</p>
+          <p style={{ color: "#d0d0d0", marginTop: "5px" }}>Next Steps: {resolution.nextSteps}</p>
+          <p style={{ color: "#d0d0d0", marginTop: "5px" }}>Sentiment Analysis: {sentiment}</p>
+          <p style={{ color: "#d0d0d0", marginTop: "5px" }}>Resolution Score: {resolutionScore}/100</p>
         </div>
       )}
 
-      {/* Features */}
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div style={{ 
+        marginTop: "30px", 
+        display: "grid", 
+        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", 
+        gap: "20px" 
+      }}>
         {[{
           title: "AI-Powered Mediator",
           description: "Get AI-guided dispute mediation.",
-          icon: <FaRobot className="text-blue-400 text-4xl mb-4" />,
+          icon: <FaRobot style={{ color: "#66b2ff", fontSize: "32px", marginBottom: "10px" }} />,
           action: "AI Mediator Bot will guide you through the resolution process."
         },
         {
           title: "Live Voting & Polls",
           description: "Allow all parties to vote on resolution terms.",
-          icon: <FaPoll className="text-blue-400 text-4xl mb-4" />,
+          icon: <FaPoll style={{ color: "#66b2ff", fontSize: "32px", marginBottom: "10px" }} />,
           action: "Start a live poll to let parties vote on resolution options."
         },
         {
           title: "Document Submission",
           description: "Drag and drop evidence for review.",
-          icon: <FaFileUpload className="text-blue-400 text-4xl mb-4" />,
+          icon: <FaFileUpload style={{ color: "#66b2ff", fontSize: "32px", marginBottom: "10px" }} />,
           action: "Upload and submit relevant dispute documents."
         },
         {
           title: "Case Sentiment Analysis",
           description: "AI detects discussion tone (aggressive, neutral, cooperative).",
-          icon: <FaSmile className="text-blue-400 text-4xl mb-4" />,
+          icon: <FaSmile style={{ color: "#66b2ff", fontSize: "32px", marginBottom: "10px" }} />,
           action: "AI detects tone and attitude of all parties."
         },
         {
           title: "Resolution Score",
           description: "Encourages fair resolution and builds credibility.",
-          icon: <FaBalanceScale className="text-blue-400 text-4xl mb-4" />,
+          icon: <FaBalanceScale style={{ color: "#66b2ff", fontSize: "32px", marginBottom: "10px" }} />,
           action: "Resolution score based on fairness and cooperation."
         }].map((feature, index) => (
-          <Card
-            key={index}
-            className="bg-gray-800 shadow-lg hover:scale-105 cursor-pointer"
-            sx={{ p: 3 }}
+          <Card key={index} 
+            style={{ 
+              backgroundColor: "#2a3b4f", 
+              padding: "20px", 
+              cursor: "pointer", 
+              boxShadow: "0px 4px 6px rgba(0,0,0,0.2)", 
+              borderRadius: "8px",
+              transition: "transform 0.3s"
+            }}
             onClick={() => alert(feature.action)}
+            onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+            onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
           >
             <CardContent>
               {feature.icon}
-              <h2 className="text-white text-xl font-bold">{feature.title}</h2>
-              <p className="text-gray-300 mt-2">{feature.description}</p>
+              <h2 style={{ color: "white", fontSize: "18px", fontWeight: "bold" }}>{feature.title}</h2>
+              <p style={{ color: "#d0d0d0", marginTop: "5px" }}>{feature.description}</p>
             </CardContent>
           </Card>
         ))}

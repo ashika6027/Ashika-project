@@ -12,6 +12,7 @@ import {
   FaShieldAlt,
   FaUserSecret,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { Card, Input, Button } from "@mui/material";
 
 const LegalAdvice = () => {
@@ -43,7 +44,7 @@ const LegalAdvice = () => {
   return (
     <div
       style={{
-        backgroundColor: "#1a1a1a",
+        background: "linear-gradient(to right, #141e30, #243b55)",
         minHeight: "100vh",
         color: "white",
         padding: "24px",
@@ -57,7 +58,7 @@ const LegalAdvice = () => {
           textAlign: "center",
         }}
       >
-        AI-Powered Legal Assistance
+        Samvidhan-Setu Legal Assistance
       </h1>
       <p style={{ color: "#B0BEC5", textAlign: "center", marginTop: "8px" }}>
         Get AI-generated legal insights, document analysis, and more.
@@ -74,7 +75,7 @@ const LegalAdvice = () => {
         <Input
           style={{
             width: "50%",
-            backgroundColor: "#333",
+            backgroundColor: "#3b5268",
             color: "white",
             border: "1px solid #555",
             padding: "8px",
@@ -138,7 +139,7 @@ const LegalAdvice = () => {
                 <li
                   key={index}
                   style={{
-                    backgroundColor: "#333",
+                    backgroundColor: "#3b5268",
                     padding: "8px",
                     borderRadius: "6px",
                     marginTop: "4px",
@@ -165,6 +166,7 @@ const LegalAdvice = () => {
             icon: FaFileAlt,
             title: "Legal Document Generator",
             desc: "Generate contracts, affidavits, and petitions automatically.",
+            link: "/assistant",
           },
           {
             icon: FaCommentDots,
@@ -205,7 +207,7 @@ const LegalAdvice = () => {
           <Card
             key={index}
             style={{
-              backgroundColor: "#333",
+              backgroundColor: "#2a3b4f", // Updated box color
               padding: "24px",
               boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
               transition: "transform 0.2s",

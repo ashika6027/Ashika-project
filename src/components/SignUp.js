@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   TextField,
@@ -7,12 +8,27 @@ import {
   Typography,
   Divider,
   IconButton,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
+  const [role, setRole] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if (!role) return; // Ensure role is selected before proceeding
+
+    if (role === "Judge") navigate("/judge-dashboard");
+    else if (role === "Lawyer") navigate("/lawyer-dashboard");
+    else if (role === "Law Student") navigate("/student-dashboard");
+    else if (role === "Litigants") navigate("/litigant-dashboard");
+  };
 
   return (
     <div
@@ -21,48 +37,43 @@ export default function AuthPage() {
         minHeight: "100vh",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#212121",
+        background: "linear-gradient(to right, #141e30, #243b55)",
         color: "white",
+        padding: "20px",
       }}
     >
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        style={{ width: "50%", padding: "24px" }}
+        style={{ width: "400px", padding: "16px" }}
       >
         <Card
-          sx={{
+          style={{
             backgroundColor: "#1E1E1E",
             color: "white",
-            padding: 3,
-            borderRadius: 3,
+            padding: "20px",
+            borderRadius: "12px",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
           }}
         >
           <CardContent>
             <Typography
               variant="h5"
               align="center"
-              sx={{ color: "#90CAF9", fontWeight: "bold", mb: 2 }}
+              style={{ color: "#4db8ff", fontWeight: "bold", marginBottom: "12px" }}
             >
-              {isLogin ? "Login to Your Account" : "Create an Account"}
+              {isLogin ? "Login" : "Sign Up"}
             </Typography>
 
-            <form
-              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-            >
+            <form style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {!isLogin && (
                 <TextField
                   fullWidth
                   label="Full Name"
                   variant="outlined"
-                  sx={{
-                    input: {
-                      background: "#424242",
-                      borderRadius: 1,
-                      color: "white",
-                    },
-                  }}
+                  style={{ backgroundColor: "#2a3b4f", borderRadius: "5px" }}
+                  InputProps={{ style: { color: "white" } }}
                 />
               )}
               <TextField
@@ -70,26 +81,16 @@ export default function AuthPage() {
                 label="Email"
                 type="email"
                 variant="outlined"
-                sx={{
-                  input: {
-                    background: "#424242",
-                    borderRadius: 1,
-                    color: "white",
-                  },
-                }}
+                style={{ backgroundColor: "#2a3b4f", borderRadius: "5px" }}
+                InputProps={{ style: { color: "white" } }}
               />
               <TextField
                 fullWidth
                 label="Password"
                 type="password"
                 variant="outlined"
-                sx={{
-                  input: {
-                    background: "#424242",
-                    borderRadius: 1,
-                    color: "white",
-                  },
-                }}
+                style={{ backgroundColor: "#2a3b4f", borderRadius: "5px" }}
+                InputProps={{ style: { color: "white" } }}
               />
               {!isLogin && (
                 <TextField
@@ -97,21 +98,32 @@ export default function AuthPage() {
                   label="Confirm Password"
                   type="password"
                   variant="outlined"
-                  sx={{
-                    input: {
-                      background: "#424242",
-                      borderRadius: 1,
-                      color: "white",
-                    },
-                  }}
+                  style={{ backgroundColor: "#2a3b4f", borderRadius: "5px" }}
+                  InputProps={{ style: { color: "white" } }}
                 />
+              )}
+              {!isLogin && (
+                <FormControl fullWidth style={{ backgroundColor: "#2a3b4f", borderRadius: "5px" }}>
+                  <InputLabel style={{ color: "white" }}>Role</InputLabel>
+                  <Select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    variant="outlined"
+                    style={{ color: "white" }}
+                  >
+                    <MenuItem value="Judge">Judge</MenuItem>
+                    <MenuItem value="Lawyer">Lawyer</MenuItem>
+                    <MenuItem value="Law Student">Law Student</MenuItem>
+                    <MenuItem value="Litigants">Litigants</MenuItem>
+                  </Select>
+                </FormControl>
               )}
               {isLogin && (
                 <Typography
                   align="right"
-                  sx={{
-                    color: "#90CAF9",
-                    fontSize: 14,
+                  style={{
+                    color: "#4db8ff",
+                    fontSize: "14px",
                     marginTop: "8px",
                     cursor: "pointer",
                   }}
@@ -122,47 +134,53 @@ export default function AuthPage() {
               <Button
                 fullWidth
                 variant="contained"
-                sx={{
-                  background: "#2196F3",
-                  ":hover": { transform: "scale(1.05)" },
+                style={{
+                  backgroundColor: "#007BFF",
+                  color: "white",
+                  fontWeight: "bold",
+                  padding: "8px",
+                  borderRadius: "5px",
+                  transition: "transform 0.2s",
                 }}
+                onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
+                onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+                onClick={handleLogin} // Call handleLogin on button click
               >
                 {isLogin ? "Login" : "Sign Up"}
               </Button>
             </form>
 
             <Divider
-              sx={{
+              style={{
                 backgroundColor: "#424242",
-                marginTop: "24px",
-                marginBottom: "24px",
+                marginTop: "20px",
+                marginBottom: "20px",
               }}
             >
               or continue with
             </Divider>
 
-            <div
-              style={{ display: "flex", justifyContent: "center", gap: "16px" }}
-            >
+            <div style={{ display: "flex", justifyContent: "center", gap: "12px" }}>
               <IconButton
-                sx={{ color: "#90CAF9", ":hover": { transform: "scale(1.1)" } }}
+                style={{ color: "#4db8ff", transition: "transform 0.2s" }}
+                onMouseOver={(e) => (e.target.style.transform = "scale(1.1)")}
+                onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
               >
-                <FaGoogle size={24} />
+                <FaGoogle size={22} />
               </IconButton>
               <IconButton
-                sx={{ color: "#E0E0E0", ":hover": { transform: "scale(1.1)" } }}
+                style={{ color: "#E0E0E0", transition: "transform 0.2s" }}
+                onMouseOver={(e) => (e.target.style.transform = "scale(1.1)")}
+                onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
               >
-                <FaGithub size={24} />
+                <FaGithub size={22} />
               </IconButton>
             </div>
 
-            <Typography
-              align="center"
-              sx={{ color: "#B0BEC5", marginTop: "24px", fontSize: 14 }}
-            >
+            <Typography align="center" style={{ color: "#B0BEC5", marginTop: "16px", fontSize: "14px" }}>
               {isLogin ? "Don't have an account?" : "Already have an account?"}
               <Button
-                sx={{ color: "#90CAF9", textTransform: "none" }}
+                style={{ color: "#4db8ff", textTransform: "none" }}
                 onClick={() => setIsLogin(!isLogin)}
               >
                 {isLogin ? "Sign up" : "Login"}

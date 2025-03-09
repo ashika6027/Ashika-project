@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Card, CardContent, Button, TextField } from "@mui/material";
 import { FaGavel, FaChartLine, FaUserShield, FaBalanceScale, FaSearch, FaComment } from "react-icons/fa";
 
-
 export default function CaseOutcomePrediction() {
   const [caseDetails, setCaseDetails] = useState("");
   const [prediction, setPrediction] = useState(null);
@@ -24,15 +23,30 @@ export default function CaseOutcomePrediction() {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-6">
-      <h1 className="text-blue-300 text-3xl font-bold text-center">Case Outcome Prediction</h1>
-      <p className="text-gray-300 text-center mt-2">AI-powered case success prediction with legal strategies.</p>
+    <div style={{ 
+      background: "linear-gradient(to right, #141e30, #243b55)", 
+      minHeight: "100vh", 
+      color: "white", 
+      padding: "20px" 
+    }}>
+      <h1 style={{ color: "#66b2ff", fontSize: "28px", textAlign: "center", fontWeight: "bold" }}>
+        Case Outcome Prediction
+      </h1>
+      <p style={{ color: "#ccc", textAlign: "center", marginTop: "10px" }}>
+        AI-powered case success prediction with legal strategies.
+      </p>
 
       {/* Case Input Section */}
-      <div className="mt-6 flex justify-center">
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "20px", gap: "10px" }}>
         <TextField
           variant="outlined"
-          className="w-1/2 bg-gray-800 text-white border border-gray-700 rounded-md"
+          style={{
+            width: "50%",
+            backgroundColor: "#3b5268",
+            color: "white",
+            borderRadius: "5px",
+            border: "1px solid #444",
+          }}
           placeholder="Enter case details..."
           value={caseDetails}
           onChange={(e) => setCaseDetails(e.target.value)}
@@ -40,39 +54,64 @@ export default function CaseOutcomePrediction() {
         />
         <Button 
           variant="contained" 
-          className="ml-2 bg-blue-500 hover:scale-105" 
+          style={{
+            backgroundColor: "#007bff",
+            color: "white",
+            padding: "10px 20px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            transition: "0.3s",
+          }}
+          onMouseOver={(e) => (e.target.style.opacity = "0.8")}
+          onMouseOut={(e) => (e.target.style.opacity = "1")}
           onClick={handlePredict}
         >
-          <FaSearch className="mr-2" /> Predict
+          <FaSearch style={{ marginRight: "8px" }} /> Predict
         </Button>
       </div>
 
       {/* Prediction Result */}
       {prediction && (
-        <div className="mt-6 text-center">
-          <p className="text-blue-400 text-xl font-bold">Success Probability: {prediction.probability}%</p>
-          <div className="w-1/2 mx-auto bg-gray-700 rounded-full h-6 mt-2 overflow-hidden">
+        <div style={{ textAlign: "center", marginTop: "30px" }}>
+          <p style={{ color: "#66b2ff", fontSize: "22px", fontWeight: "bold" }}>
+            Success Probability: {prediction.probability}%
+          </p>
+          <div style={{ 
+            width: "50%", 
+            backgroundColor: "#333", 
+            borderRadius: "50px", 
+            height: "20px", 
+            margin: "10px auto", 
+            overflow: "hidden" 
+          }}>
             <div
-              className="h-full text-white text-center text-sm font-bold flex items-center justify-center"
-              style={{ 
-                width: `${prediction.probability}%`, 
+              style={{
+                height: "100%",
+                width: `${prediction.probability}%`,
                 backgroundColor: prediction.probability > 70 ? "#4CAF50" 
                   : prediction.probability > 40 ? "#FFC107" 
-                  : "#F44336"
+                  : "#F44336",
+                textAlign: "center",
+                color: "white",
+                fontWeight: "bold",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               {prediction.probability}%
             </div>
           </div>
-          <p className="text-gray-300 mt-2">Reasoning: {prediction.reasoning}</p>
-          <p className="text-gray-300 mt-2">Recommended Strategy: {prediction.strategy}</p>
-          <div className="mt-4 text-left inline-block">
-            <p className="text-green-400 font-bold">Pros:</p>
-            <ul className="list-disc list-inside text-gray-300">
+          <p style={{ color: "#ccc", marginTop: "10px" }}>Reasoning: {prediction.reasoning}</p>
+          <p style={{ color: "#ccc", marginTop: "10px" }}>Recommended Strategy: {prediction.strategy}</p>
+
+          <div style={{ display: "inline-block", textAlign: "left", marginTop: "20px" }}>
+            <p style={{ color: "#4CAF50", fontWeight: "bold" }}>Pros:</p>
+            <ul style={{ color: "#ccc", paddingLeft: "20px" }}>
               {prediction.pros.map((pro, index) => <li key={index}>{pro}</li>)}
             </ul>
-            <p className="text-red-400 font-bold mt-2">Cons:</p>
-            <ul className="list-disc list-inside text-gray-300">
+            <p style={{ color: "#F44336", fontWeight: "bold", marginTop: "10px" }}>Cons:</p>
+            <ul style={{ color: "#ccc", paddingLeft: "20px" }}>
               {prediction.cons.map((con, index) => <li key={index}>{con}</li>)}
             </ul>
           </div>
@@ -80,7 +119,12 @@ export default function CaseOutcomePrediction() {
       )}
 
       {/* Features Section */}
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", 
+        gap: "20px", 
+        marginTop: "40px" 
+      }}>
         {[
           { icon: FaGavel, title: "Comparative Case Analysis", desc: "View similar case verdicts and key legal arguments." },
           { icon: FaChartLine, title: "Risk Assessment", desc: "Understand risks and explore alternative dispute resolutions." },
@@ -88,11 +132,23 @@ export default function CaseOutcomePrediction() {
           { icon: FaBalanceScale, title: "Multi-Jurisdiction Analysis", desc: "Compare case outcomes across different legal jurisdictions." },
           { icon: FaComment, title: "Lawyer Consultation", desc: "Get case validation from legal professionals." }
         ].map((feature, index) => (
-          <Card key={index} className="bg-gray-800 p-6 shadow-lg hover:scale-105 cursor-pointer" onClick={() => alert(`${feature.title}: More details coming soon!`)}>
+          <Card 
+            key={index} 
+            style={{ 
+              backgroundColor: "#2a3b4f", 
+              padding: "20px", 
+              boxShadow: "3px 3px 10px rgba(0,0,0,0.3)", 
+              cursor: "pointer",
+              transition: "transform 0.2s",
+            }}
+            onClick={() => alert(`${feature.title}: More details coming soon!`)}
+            onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+          >
             <CardContent>
-              <feature.icon className="text-blue-400 text-4xl mb-4" />
-              <h2 className="text-white text-xl font-bold">{feature.title}</h2>
-              <p className="text-gray-300 mt-2">{feature.desc}</p>
+              <feature.icon style={{ color: "#66b2ff", fontSize: "32px", marginBottom: "10px" }} />
+              <h2 style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}>{feature.title}</h2>
+              <p style={{ color: "#ccc", marginTop: "5px" }}>{feature.desc}</p>
             </CardContent>
           </Card>
         ))}

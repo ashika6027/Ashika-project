@@ -1,9 +1,8 @@
 import React from "react";
-import { Button, Card, CardContent, TextField } from "@mui/material"; // ✅ Fixed imports
+import { Button, Card, CardContent, TextField } from "@mui/material";
 import { Search } from "lucide-react";
 import { motion } from "framer-motion";
 
-// ✅ Move sections array before the component
 const sections = [
   { title: "AI-Powered Legal Tutor", description: "Get AI-driven insights, case law explanations, and legal document summaries.", buttonText: "Learn More" },
   { title: "Legal Challenges & Simulations", description: "Participate in mock trials, legal debates, and AI-generated case challenges.", buttonText: "Explore" },
@@ -15,46 +14,57 @@ const sections = [
 
 const LegalEducationPage = () => {
   return (
-    <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white min-h-screen p-6 flex flex-col items-center">
-      {/* Header Section */}
+    <div style={{ 
+      background: "linear-gradient(to right, #141e30, #243b55)", 
+      minHeight: "100vh", 
+      color: "white", 
+      padding: "24px", 
+      display: "flex", 
+      flexDirection: "column", 
+      alignItems: "center" 
+    }}>
       <motion.header 
-        className="text-center mb-8"
+        style={{ textAlign: "center", marginBottom: "32px" }}
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-5xl font-extrabold text-blue-400 drop-shadow-lg">Legal Education & Resources</h1>
-        <p className="text-gray-300 mt-3 text-lg">Empower yourself with AI-driven legal research and immersive learning.</p>
+        <h1 style={{ fontSize: "40px", fontWeight: "bold", color: "#66b2ff" }}>Legal Education & Resources</h1>
+        <p style={{ color: "#d1d5db", marginTop: "12px", fontSize: "18px" }}>Empower yourself with AI-driven legal research and immersive learning.</p>
       </motion.header>
 
-      {/* Search Bar */}
       <motion.div 
-        className="flex justify-center mb-10"
+        style={{ marginBottom: "40px", display: "flex", justifyContent: "center" }}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="relative w-full max-w-xl">
+        <div style={{ position: "relative", width: "100%", maxWidth: "480px" }}>
           <TextField
             type="text"
             placeholder="Search legal topics, case laws, or books..."
             variant="outlined"
             fullWidth
-            sx={{
-              input: { color: "white", backgroundColor: "#1f2937", borderRadius: "24px", paddingLeft: "40px" },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": { borderColor: "gray" },
-                "&:hover fieldset": { borderColor: "blue" },
-                "&.Mui-focused fieldset": { borderColor: "blue" },
+            InputProps={{
+              style: { 
+                color: "white", 
+                backgroundColor: "#3b5268", 
+                borderRadius: "24px", 
+                paddingLeft: "40px" 
               }
             }}
           />
-          <Search className="absolute left-4 top-3 text-gray-400" size={22} />
+          <Search style={{ position: "absolute", left: "12px", top: "12px", color: "#9ca3af" }} size={22} />
         </div>
       </motion.div>
 
-      {/* Main Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-7xl">
+      <div style={{ 
+        display: "grid", 
+        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", 
+        gap: "16px", 
+        width: "100%", 
+        maxWidth: "1200px" 
+      }}>
         {sections.map((section, index) => (
           <motion.div 
             key={index} 
@@ -62,15 +72,33 @@ const LegalEducationPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
-            <Card className="relative overflow-hidden bg-gray-800 p-6 rounded-3xl shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
-              <div className="absolute top-0 left-0 w-full h-1 bg-blue-500" />
+            <Card 
+              style={{ 
+                backgroundColor: "#2a3b4f", 
+                padding: "16px", 
+                borderRadius: "16px", 
+                boxShadow: "4px 4px 12px rgba(0, 0, 0, 0.2)", 
+                cursor: "pointer", 
+                transition: "transform 0.3s" 
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
+              onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+            >
+              <div style={{ height: "4px", backgroundColor: "#66b2ff", width: "100%" }}></div>
               <CardContent>
-                <h2 className="text-2xl font-bold text-blue-300 mb-3">{section.title}</h2>
-                <p className="text-gray-400 text-sm leading-relaxed">{section.description}</p>
+                <h2 style={{ fontSize: "20px", fontWeight: "bold", color: "#93c5fd", marginBottom: "12px" }}>{section.title}</h2>
+                <p style={{ color: "#d1d5db", fontSize: "14px", lineHeight: "1.5" }}>{section.description}</p>
                 <Button 
                   variant="contained" 
                   fullWidth
-                  sx={{ mt: 2, bgcolor: "blue", "&:hover": { bgcolor: "darkblue" } }}
+                  style={{ 
+                    marginTop: "12px", 
+                    backgroundColor: "#3b5268", 
+                    color: "white",
+                    transition: "background-color 0.3s"
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#2a3b4f"}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#3b5268"}
                 >
                   {section.buttonText}
                 </Button>

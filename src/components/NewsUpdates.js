@@ -1,89 +1,109 @@
-import React from "react";
-import Button from "@mui/material/Button"; 
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import TextField from "@mui/material/TextField"; 
-import { Search } from "lucide-react"; 
+import { useState } from "react";
+import { Card, CardContent, Input, Button } from "@mui/material";
 import { motion } from "framer-motion";
+import { Globe, Search, Bookmark } from "lucide-react";
 
+export default function LegalNewsUpdates() {
+  const [news] = useState([
+    {
+      title: "Supreme Court Rules on Landmark Privacy Case",
+      description: "The Supreme Court has delivered a historic ruling on digital privacy rights, impacting data protection laws worldwide.",
+      url: "https://example.com/supreme-court-privacy",
+      source: { name: "Supreme Court News" },
+    },
+    {
+      title: "New Cybersecurity Law Passed to Combat Online Crimes",
+      description: "The government has introduced a strict cybersecurity law aimed at protecting citizens from increasing cyber threats.",
+      url: "https://example.com/cybersecurity-law",
+      source: { name: "Tech Law Today" },
+    },
+  ]);
 
-const sections = [
-  { title: "AI-Powered Legal Tutor", description: "Get AI-driven insights, case law explanations, and legal document summaries.", buttonText: "Learn More" },
-  { title: "Legal Challenges & Simulations", description: "Participate in mock trials, legal debates, and AI-generated case challenges.", buttonText: "Explore" },
-  { title: "Smart Legal Library", description: "Search legal books, comparative laws, and AI-generated case summaries.", buttonText: "Browse" },
-  { title: "Community Q&A & Blogging", description: "Discuss legal issues, write blogs, and interact with legal professionals.", buttonText: "Join Now" },
-  { title: "Certifications & Ranking", description: "Get recognized for your contributions and boost your legal career.", buttonText: "View Rankings" },
-  { title: "Law Updates & Amendments", description: "Stay updated with the latest legal reforms and case law changes.", buttonText: "Read More" }
-];
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredNews, setFilteredNews] = useState(news);
+  const [bookmarked, setBookmarked] = useState([]);
 
-const LegalEducationPage = () => {
+  const handleSearch = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearchTerm(value);
+    setFilteredNews(news.filter((article) =>
+      article.title.toLowerCase().includes(value) || article.description.toLowerCase().includes(value)
+    ));
+  };
+
+  const handleBookmark = (article) => {
+    setBookmarked((prev) => prev.some((item) => item.title === article.title) ? prev : [...prev, article]);
+  };
+
   return (
-    <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white min-h-screen p-6 flex flex-col items-center">
-      {/* Header Section */}
-      <motion.header 
-        className="text-center mb-8"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-5xl font-extrabold text-blue-400 drop-shadow-lg">Legal Education & Resources</h1>
-        <p className="text-gray-300 mt-3 text-lg">Empower yourself with AI-driven legal research and immersive learning.</p>
-      </motion.header>
+    <div style={{
+      minHeight: "100vh",
+      background: "linear-gradient(to right, #141e30, #243b55)",
+      color: "white",
+      padding: "20px",
+    }}>
+      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          style={{
+            textAlign: "center",
+            fontSize: "36px",
+            fontWeight: "bold",
+            backgroundClip: "text",
+            color: "white",
+          }}
+        >
+          Legal News & Updates
+        </motion.h1>
 
-      {/* Search Bar */}
-      <motion.div 
-        className="flex justify-center mb-10"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <div className="relative w-full max-w-xl">
-          <TextField
+        {/* Search Box */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px", position: "relative" }}>
+          <Input
             type="text"
-            placeholder="Search legal topics, case laws, or books..."
-            variant="outlined"
-            fullWidth
-            sx={{
-              input: { color: "white", backgroundColor: "#1f2937", borderRadius: "24px", paddingLeft: "40px" },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": { borderColor: "gray" },
-                "&:hover fieldset": { borderColor: "blue" },
-                "&.Mui-focused fieldset": { borderColor: "blue" },
-              }
+            placeholder="Search legal news..."
+            value={searchTerm}
+            onChange={handleSearch}
+            style={{
+              width: "100%",
+              padding: "10px 40px 10px 10px",  // Adjusted padding so text doesn't overlap with icon
+              borderRadius: "8px",
+              backgroundColor: "#3b5268",
+              color: "white",
+              border: "none",
             }}
           />
-          <Search className="absolute left-4 top-3 text-gray-400" size={22} />
+          <Search style={{
+            position: "absolute",
+            right: "15px", // Positioned on the right outside the text
+            color: "white",
+          }} />
         </div>
-      </motion.div>
 
-      {/* Main Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-7xl">
-        {sections.map((section, index) => (
-          <motion.div 
-            key={index} 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-          >
-            <Card className="relative overflow-hidden bg-gray-800 p-6 rounded-3xl shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
-              <div className="absolute top-0 left-0 w-full h-1 bg-blue-500" />
-              <CardContent>
-                <h2 className="text-2xl font-bold text-blue-300 mb-3">{section.title}</h2>
-                <p className="text-gray-400 text-sm leading-relaxed">{section.description}</p>
-                <Button 
-                  variant="contained" 
-                  fullWidth
-                  sx={{ mt: 2, bgcolor: "blue", "&:hover": { bgcolor: "darkblue" } }}
-                >
-                  {section.buttonText}
-                </Button>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+        {/* News Cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+          {filteredNews.map((article, index) => (
+            <motion.div key={index} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }}>
+              <Card style={{ backgroundColor: "#2a3b4f", borderRadius: "10px", padding: "10px" }}>
+                <CardContent>
+                  <h2 style={{ fontSize: "20px", fontWeight: "bold", color: "#b0c4de" }}>{article.title}</h2>
+                  <p style={{ fontSize: "14px", color: "white" }}>{article.description}</p>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px" }}>
+                    <a href={article.url} target="_blank" rel="noopener noreferrer"
+                      style={{ textDecoration: "none", padding: "6px 12px", backgroundColor: "#4682b4", color: "white", borderRadius: "5px" }}>
+                      <Globe style={{ marginRight: "5px" }} /> Read More
+                    </a>
+                    <Button onClick={() => handleBookmark(article)} style={{ backgroundColor: "transparent" }}>
+                      <Bookmark style={{ color: "#ffd700" }} />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );
-};
-
-export default LegalEducationPage; 
+}
