@@ -54,16 +54,22 @@ export default function LawyerDashboard() {
 
       {/* Tools & Resources */}
       <div style={{ marginTop: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "16px" }}>
-        {[
-          { icon: <BookOpen size={40} style={{ color: "#4db8ff" }} />, title: "Case Law Search" },
-          { icon: <MessageSquare size={40} style={{ color: "#4db8ff" }} />, title: "AI Legal Chatbot" },
+        {[ 
+          { icon: <BookOpen size={40} style={{ color: "#4db8ff" }} />, title: "Case Law Search", link: "/search" },
+          { icon: <MessageSquare size={40} style={{ color: "#4db8ff" }} />, title: "AI Legal Chatbot", link: "/chatbot" },
           { icon: <Users size={40} style={{ color: "#4db8ff" }} />, title: "Client Interactions" },
-          { icon: <Globe size={40} style={{ color: "#4db8ff" }} />, title: "Virtual Courtroom" },
+          { icon: <Globe size={40} style={{ color: "#4db8ff" }} />, title: "Virtual Courtroom", link: "/virtual" },
         ].map((tool, index) => (
           <Card key={index} style={{ padding: "16px", cursor: "pointer", backgroundColor: "#1e2a38", borderRadius: "12px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", textAlign: "center" }}>
             <CardContent>
               {tool.icon}
-              <p style={{ marginTop: "8px", fontWeight: "bold", color: "#b0bec5" }}>{tool.title}</p>
+              {tool.link ? (
+                <Link to={tool.link} style={{ textDecoration: "none", color: "inherit" }}>
+                  <p style={{ marginTop: "8px", fontWeight: "bold", color: "#b0bec5" }}>{tool.title}</p>
+                </Link>
+              ) : (
+                <p style={{ marginTop: "8px", fontWeight: "bold", color: "#b0bec5" }}>{tool.title}</p>
+              )}
             </CardContent>
           </Card>
         ))}

@@ -22,38 +22,16 @@ import JudgeDashboard from "./components/JudgeDashboard";
 import LawyerDashboard from "./components/LawyerDashboard";
 import StudentDashboard from "./components/StudentDashboard";
 import LitigantDashboard from "./components/LitigantDashboard";
+import HomePage from "./components/HomePage";
 
 
 function App() {
   return (
     <>
-      <nav>
-        <Link to="/">Home</Link> |<Link to="/search"> Case Search</Link> |
-        <Link to="/advice"> Legal Advice</Link> |
-        <Link to="/chatbot"> Chatbot</Link> |
-        <Link to="/assistant"> Assistant</Link> |
-        <Link to="/prediction"> Prediction</Link> |
-        <Link to="/notification"> Notification</Link> |
-        <Link to="/education"> Education</Link> |
-        <Link to="/checking"> Checking</Link> |
-        <Link to="/virtual"> Virtual</Link> |
-        <Link to="/dispute"> Dispute</Link>{" "} |
-        <Link to="/predictive"> Predictive</Link> |
-        <Link to="/summarised"> Summarised</Link> |
-        <Link to="/signup"> Signup</Link> |
-        <Link to="/profile"> ProfileSetting</Link> |
-        <Link to="/news"> NewsUpdates</Link> |
-        <Link to="/contact"> ContactUs</Link> |
-        <Link to="/community"> Community</Link> |
-        <Link to="/judge-dashboard">Judge Dashboard</Link>
-        <Link to="/lawyer-dashboard">Lawyer Dashboard</Link>
-        <Link to="/student-dashboard">Student Dashboard</Link>
-        <Link to="/litigant-dashboard">Litigant Dashboard</Link>
- 
-      </nav>
+      
 
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/landing" element={<LandingPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/advice" element={<LegalAdvice />} />
         <Route path="/chatbot" element={<LegalChatbot />} />
@@ -75,6 +53,7 @@ function App() {
         <Route path="/lawyer-dashboard" element={<LawyerDashboard />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/litigant-dashboard" element={<LitigantDashboard />} />
+        <Route path="/" element={<HomePage />} />
 
       </Routes>
     </>

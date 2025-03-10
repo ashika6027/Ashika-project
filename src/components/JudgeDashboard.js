@@ -3,6 +3,11 @@ import { Button, Card, CardContent, Table, TableHead, TableRow, TableCell, Table
 import { Gavel, FileText, Users, Clock, Search, Shield, CheckCircle, Bell, BarChart2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom"; // Ensure correct usage of React Router's Link
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+
+
+
 
 export default function JudgeDashboard() {
   const [cases, setCases] = useState([
@@ -10,6 +15,8 @@ export default function JudgeDashboard() {
     { id: 2, title: "Case 102: State vs. Doe", status: "Pending", time: "11:30 AM" },
     { id: 3, title: "Case 103: Brown vs. Green", status: "Completed", time: "1:00 PM" },
   ]);
+
+  const toolLinks = ["/assistant", "", "", "/search", "/checking", "/prediction", "/tracking", ""];
 
   return (
     <div style={{ backgroundColor: "#141e30", minHeight: "100vh", color: "white", padding: "32px" }}>
@@ -53,23 +60,16 @@ export default function JudgeDashboard() {
       {/* Tools & Resources */}
       <div style={{ marginTop: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "16px" }}>
         {[FileText, Users, Clock, Search, Shield, CheckCircle, Bell, BarChart2].map((Icon, index) => (
-          <Card key={index} style={{ padding: "16px", cursor: "pointer", backgroundColor: "#1e2a38", borderRadius: "12px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", textAlign: "center" }}>
-            <CardContent>
-              <Icon size={40} style={{ color: "#4db8ff" }} />
-              <p style={{ marginTop: "8px", fontWeight: "bold", color: "#b0bec5" }}>
-                {[
-                  "Legal Documents",
-                  "Case Participants",
-                  "Schedule Management",
-                  "AI Case Law Search",
-                  "Fact-Checking & AI Cross-Questions",
-                  "Predictive Case Outcome",
-                  "Notifications & Case Tracking",
-                  "User & Case Analytics",
-                ][index]}
-              </p>
-            </CardContent>
-          </Card>
+          <Link to={toolLinks[index]} key={index} style={{ textDecoration: "none" }}>
+            <Card style={{ padding: "16px", cursor: "pointer", backgroundColor: "#1e2a38", borderRadius: "12px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", textAlign: "center" }}>
+              <CardContent>
+                <Icon size={40} style={{ color: "#4db8ff" }} />
+                <p style={{ marginTop: "8px", fontWeight: "bold", color: "#b0bec5" }}>
+                  {["Legal Documents", "Case Participants", "Schedule Management", "AI Case Law Search", "Fact-Checking & AI Cross-Questions", "Predictive Case Outcome", "Notifications & Case Tracking", "User & Case Analytics"][index]}
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>
