@@ -11,8 +11,8 @@ import {
 import { FaUser, FaLock, FaPalette, FaBell, FaGlobe } from "react-icons/fa";
 
 export default function UserProfileSettings() {
-  const [username, setUsername] = useState("JohnDoe");
-  const [email, setEmail] = useState("johndoe@example.com");
+  const [username, setUsername] = useState(() => localStorage.getItem("username") || "Enter your name");
+  const [email, setEmail] = useState(() => localStorage.getItem("email") || "xyz@example.com");
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
   const [language, setLanguage] = useState(() => localStorage.getItem("language") || "English");
 

@@ -16,17 +16,19 @@ export default function CaseLawSearch() {
     {
       title: "Landmark Privacy Case",
       court: "Supreme Court of India",
-      date: "Jan 15, 2023",
+      year: "2017",
       summary:
-        "This case established the right to privacy as a fundamental right...",
+        "This case of Justice K.S. Puttaswamy (Retd.) v. Union of India...",
       citation: "(2023) SC 1254",
+      doc: "/The_case_of_Justice_K.docx"
+
+ // Updated Word document path
     },
     {
       title: "Corporate Fraud Case",
       court: "Delhi High Court",
-      date: "Feb 10, 2024",
-      summary:
-        "A major corporate fraud case involving misrepresentation of financial statements...",
+      year: "2009",
+      summary: "A prominent example of corporate fraud is the Satyam...",
       citation: "(2024) DHC 567",
     },
   ]);
@@ -94,7 +96,7 @@ export default function CaseLawSearch() {
           <motion.div key={index} whileHover={{ scale: 1.05 }}>
             <Card
               style={{
-                backgroundColor: "#2a3b4f", // Updated box color
+                backgroundColor: "#2a3b4f",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                 padding: "16px",
               }}
@@ -110,7 +112,7 @@ export default function CaseLawSearch() {
                   {caseItem.title}
                 </h2>
                 <p style={{ color: "#ccc" }}>
-                  {caseItem.court} - {caseItem.date}
+                  {caseItem.court} - {caseItem.year}
                 </p>
                 <p style={{ color: "#ddd", marginTop: "8px" }}>
                   {caseItem.summary}
@@ -142,6 +144,27 @@ export default function CaseLawSearch() {
                     <MessageCircle style={{ width: "20px", height: "20px" }} />
                   </Button>
                 </div>
+
+                {/* Document Button - Only for cases that have a Word document */}
+                {caseItem.doc && (
+                  <a
+                    href={caseItem.doc}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-block",
+                      textDecoration: "none",
+                      color: "white",
+                      backgroundColor: "#1e90ff",
+                      padding: "8px 16px",
+                      textAlign: "center",
+                      borderRadius: "4px",
+                      marginTop: "16px",
+                    }}
+                  >
+                    View Case Document
+                  </a>
+                )}
               </CardContent>
             </Card>
           </motion.div>

@@ -78,11 +78,10 @@ export default function LandingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          AI-Powered Legal Research & Assistance
+          Empowering Legal Research & Case Analysis
         </motion.h1>
         <p className="hero-text">
-          Search legal cases, interact with an AI chatbot, and predict case
-          outcomes with our AI-driven platform.
+          Explore simplified legal research,case summaries and interactive learning tools designed to make the Indian legal system accessible to all.
         </p>
         <div className="search-box">
           <Input
@@ -120,7 +119,7 @@ export default function LandingPage() {
           {
             icon: FaGavel,
             title: "AI Legal Search",
-            desc: "Find relevant case laws instantly.",
+            desc: "Easily access relavant case laws and judicial precedents for better legal.",
             val: "/search",
           },
           {
@@ -174,7 +173,7 @@ export default function LandingPage() {
             icon: FaBalanceScale,
             title: "Virtual Courts & ODR",
             desc: "AI-mediated arbitration & remote hearings.",
-            val: "/virtual",
+            val: "/courtroom",
           },
           {
             icon: FaGlobe,
@@ -212,10 +211,31 @@ export default function LandingPage() {
           </Card>
         ))}
       </section>
-
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; 2025 Samvidhan-Setu. Proudly Made in India.</p>
+        <div className="footer-content">
+          <div className="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+            
+              <li><a href="/contact">Contact Us</a></li>
+              <li><a href="/community">Community Forum</a></li>
+              <li><a href="/news">News Updates</a></li>
+              <li>Email: <a href="mailto:contact@tanmaysingh8246@gmail.com">tanmaysingh8246@gmail.com</a></li>
+              <li>phone:<a href="callto:call@+91 9304444091">+91 9304444091</a></li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <ul>
+             
+              
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>&copy; 2025 Samvidhan-Setu. Proudly Made in India.</p>
+        </div>
       </footer>
     </div>
   );

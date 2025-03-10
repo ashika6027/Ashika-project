@@ -58,7 +58,7 @@ export default function LawyerDashboard() {
           { icon: <BookOpen size={40} style={{ color: "#4db8ff" }} />, title: "Case Law Search", link: "/search" },
           { icon: <MessageSquare size={40} style={{ color: "#4db8ff" }} />, title: "AI Legal Chatbot", link: "/chatbot" },
           { icon: <Users size={40} style={{ color: "#4db8ff" }} />, title: "Client Interactions" },
-          { icon: <Globe size={40} style={{ color: "#4db8ff" }} />, title: "Virtual Courtroom", link: "/virtual" },
+          { icon: <Globe size={40} style={{ color: "#4db8ff" }} />, title: "Virtual Courtroom", link: "/courtroom" },
         ].map((tool, index) => (
           <Card key={index} style={{ padding: "16px", cursor: "pointer", backgroundColor: "#1e2a38", borderRadius: "12px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", textAlign: "center" }}>
             <CardContent>

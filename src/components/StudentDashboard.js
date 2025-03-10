@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Button, Card, CardContent, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import { Book, GraduationCap, FileText, Users, ShieldCheck, Trophy, BookOpen, Award } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+
+
 
 export default function LawStudentsDashboard() {
   const [tasks, setTasks] = useState([
@@ -101,18 +104,18 @@ export default function LawStudentsDashboard() {
       {/* Tools & Resources */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.5rem", marginTop: "2rem" }}>
         {[
-          { icon: <FileText size={40} style={{ color: "#4db8ff" }} />, title: "AI Legal Research" },
-          { icon: <Users size={40} style={{ color: "#4db8ff" }} />, title: "Mock Courtroom" },
-          { icon: <Trophy size={40} style={{ color: "#4db8ff" }} />, title: "Quizzes & Leaderboard" },
-          { icon: <ShieldCheck size={40} style={{ color: "#4db8ff" }} />, title: "Case Analysis AI" },
-          { icon: <Book size={40} style={{ color: "#4db8ff" }} />, title: "Legal Knowledge Graph" },
-          { icon: <BookOpen size={40} style={{ color: "#4db8ff" }} />, title: "Legal Research" },
-          { icon: <Award size={40} style={{ color: "#4db8ff" }} />, title: "Certifications" },
+          { icon: <FileText size={40} style={{ color: "#4db8ff" }} />, title: "AI Legal Research", val:"/search"},
+          { icon: <Users size={40} style={{ color: "#4db8ff" }} />, title: "Mock Courtroom", val:"/student-dashboard" },
+          { icon: <Trophy size={40} style={{ color: "#4db8ff" }} />, title: "Quizzes & Leaderboard", val:"https://docs.google.com/forms/d/e/1FAIpQLScD-yaOsehN3R0R9L9fYRWZRmiobEskc_tXnluT-9WLL04ruQ/viewform?usp=header" },
+          { icon: <ShieldCheck size={40} style={{ color: "#4db8ff" }} />, title: "Case Analysis AI", val:"/analysis" },
+          { icon: <Book size={40} style={{ color: "#4db8ff" }} />, title: "Legal Knowledge Graph", val:"/student-dashboard" },
+          { icon: <BookOpen size={40} style={{ color: "#4db8ff" }} />, title: "Legal Research", val:"/student-dashboard" },
+          { icon: <Award size={40} style={{ color: "#4db8ff" }} />, title: "Certifications", val:"/student-dashboard" },
         ].map((tool, index) => (
           <Card key={index} style={{ padding: "1.5rem", borderRadius: "10px", backgroundColor: "#1e2a38", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", cursor: "pointer", transition: "transform 0.2s", ":hover": { transform: "scale(1.05)" } }}>
             <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
               {tool.icon}
-              <p style={{ marginTop: "10px", fontWeight: "bold", color: "#ccc" }}>{tool.title}</p>
+              <p style={{ marginTop: "10px", fontWeight: "bold", color: "#ccc" }}> <Link style={{color:"#007bff"}} to={tool.val}>{tool.title}</Link></p>
             </CardContent>
           </Card>
         ))}

@@ -1,15 +1,61 @@
 import { useState } from "react";
 import { Card, CardContent, Button, Input } from "@mui/material";
-import { 
-  FaRobot, FaBalanceScale, FaLanguage, FaHandsHelping, 
-  FaFileAlt, FaMicrophone, FaBook, FaShieldAlt, FaExclamationTriangle 
-} from "react-icons/fa";
+import { FaFileAlt, FaMicrophone } from "react-icons/fa";
 
+// Component for Dynamic Legal Form
+const LegalForm = ({ documentType }) => {
+  const [formData, setFormData] = useState({
+    partyOne: "",
+    partyTwo: "",
+    agreementDate: "",
+    statement: "",
+    reason: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div style={{ backgroundColor: "#2a3b4f", padding: "15px", borderRadius: "10px", marginTop: "15px" }}>
+      <h3 style={{ color: "#66b2ff" }}>Fill {documentType} Details</h3>
+
+      {documentType === "contract" && (
+        <>
+          <input type="text" name="partyOne" placeholder="Party One Name" value={formData.partyOne} onChange={handleChange} style={inputStyle} />
+          <input type="text" name="partyTwo" placeholder="Party Two Name" value={formData.partyTwo} onChange={handleChange} style={inputStyle} />
+          <input type="date" name="agreementDate" value={formData.agreementDate} onChange={handleChange} style={inputStyle} />
+        </>
+      )}
+
+      {documentType === "affidavit" && (
+        <>
+          <textarea name="statement" placeholder="Enter your affidavit statement" value={formData.statement} onChange={handleChange} style={inputStyle}></textarea>
+        </>
+      )}
+
+      {documentType === "petition" && (
+        <>
+          <textarea name="reason" placeholder="State the reason for petition" value={formData.reason} onChange={handleChange} style={inputStyle}></textarea>
+        </>
+      )}
+
+      <Button variant="contained" style={{ backgroundColor: "#28a745", marginTop: "10px" }}>
+        Submit {documentType}
+      </Button>
+    </div>
+  );
+};
+
+const inputStyle = {
+  width: "100%", padding: "10px", margin: "5px 0", backgroundColor: "#3b5268", color: "white", border: "none", borderRadius: "5px"
+};
+
+// Main Component
 export default function LegalAssistance() {
   const [query, setQuery] = useState("");
   const [response, setResponse] = useState("");
   const [documentType, setDocumentType] = useState("contract");
-  const [language, setLanguage] = useState("English");
 
   const handleSearch = () => {
     setResponse("AI-generated legal guidance will appear here.");
@@ -21,18 +67,6 @@ export default function LegalAssistance() {
 
   const handleDocumentGeneration = () => {
     alert(`Generating ${documentType} template...`);
-  };
-
-  const handleLegalAidCheck = () => {
-    alert("Checking eligibility for free legal aid...");
-  };
-
-  const handleCaseRiskAssessment = () => {
-    alert("Analyzing case success probability...");
-  };
-
-  const handleEmergencyHelp = () => {
-    alert("Connecting to emergency legal assistance...");
   };
 
   return (
@@ -68,7 +102,12 @@ export default function LegalAssistance() {
               <option value="affidavit">Affidavit</option>
               <option value="petition">Petition</option>
             </select>
-            <Button variant="contained" style={{ marginTop: "10px", backgroundColor: "#007bff" }} onClick={handleDocumentGeneration}>Generate</Button>
+            <Button variant="contained" style={{ marginTop: "10px", backgroundColor: "#007bff" }} onClick={handleDocumentGeneration}>
+              Generate
+            </Button>
+
+            {/* Dynamic Form Component */}
+            <LegalForm documentType={documentType} />
           </CardContent>
         </Card>
       </div>

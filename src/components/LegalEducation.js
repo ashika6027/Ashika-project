@@ -2,17 +2,20 @@ import React from "react";
 import { Button, Card, CardContent, TextField } from "@mui/material";
 import { Search } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const sections = [
   { title: "AI-Powered Legal Tutor", description: "Get AI-driven insights, case law explanations, and legal document summaries.", buttonText: "Learn More" },
   { title: "Legal Challenges & Simulations", description: "Participate in mock trials, legal debates, and AI-generated case challenges.", buttonText: "Explore" },
   { title: "Smart Legal Library", description: "Search legal books, comparative laws, and AI-generated case summaries.", buttonText: "Browse" },
-  { title: "Community Q&A & Blogging", description: "Discuss legal issues, write blogs, and interact with legal professionals.", buttonText: "Join Now" },
+  { title: "Community Q&A & Blogging", description: "Discuss legal issues, write blogs, and interact with legal professionals.", buttonText: "Join Now", link: "/community" },
   { title: "Certifications & Ranking", description: "Get recognized for your contributions and boost your legal career.", buttonText: "View Rankings" },
   { title: "Law Updates & Amendments", description: "Stay updated with the latest legal reforms and case law changes.", buttonText: "Read More" }
 ];
 
 const LegalEducationPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div style={{ 
       background: "linear-gradient(to right, #141e30, #243b55)", 
@@ -99,6 +102,7 @@ const LegalEducationPage = () => {
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#2a3b4f"}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#3b5268"}
+                  onClick={() => section.link ? navigate(section.link) : null}
                 >
                   {section.buttonText}
                 </Button>

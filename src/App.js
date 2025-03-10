@@ -23,6 +23,11 @@ import LawyerDashboard from "./components/LawyerDashboard";
 import StudentDashboard from "./components/StudentDashboard";
 import LitigantDashboard from "./components/LitigantDashboard";
 import HomePage from "./components/HomePage";
+import AnalysisAI from "./components/AnalysisAI";
+import VirtualCourtroom from "./components/VirtualCourtroom";
+import ConsultLawyer from "./components/ConsultLawyer";
+import LawyerChat from "./components/LawyerChat";
+import LegalForm from "./components/LegalForm";
 
 
 function App() {
@@ -54,6 +59,11 @@ function App() {
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/litigant-dashboard" element={<LitigantDashboard />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/analysis" element={<AnalysisAI />} />
+        <Route path="/courtroom" element={<VirtualCourtroom />} />
+        <Route path="/consult" element={<ConsultLawyer />} />
+        <Route path="/lawyerchat" element={<LawyerChat />} />
+        <Route path="/legalform" element={<LegalForm />} />
 
       </Routes>
     </>

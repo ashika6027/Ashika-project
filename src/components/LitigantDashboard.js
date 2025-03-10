@@ -54,16 +54,18 @@ export default function LitigantDashboard() {
       {/* Tools & Resources */}
       <div style={{ marginTop: "40px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "16px" }}>
         {[
-          { icon: <FileText size={40} style={{ color: "#4db8ff" }} />, title: "Legal Documents" },
-          { icon: <MessageCircle size={40} style={{ color: "#4db8ff" }} />, title: "Consult Lawyer" },
+          { icon: <FileText size={40} style={{ color: "#4db8ff" }} />, title: "Legal Documents", link: "/assistant" },
+          { icon: <MessageCircle size={40} style={{ color: "#4db8ff" }} />, title: "Consult Lawyer", link: "/consult" },
           { icon: <Clock size={40} style={{ color: "#4db8ff" }} />, title: "Hearing Schedule" },
         ].map((tool, index) => (
-          <Card key={index} style={{ padding: "16px", cursor: "pointer", backgroundColor: "#1e2a38", borderRadius: "12px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", textAlign: "center" }}>
-            <CardContent>
-              {tool.icon}
-              <p style={{ marginTop: "8px", fontWeight: "bold", color: "#b0bec5" }}>{tool.title}</p>
-            </CardContent>
-          </Card>
+          <Link key={index} to={tool.link || "#"} style={{ textDecoration: "none" }}>
+            <Card style={{ padding: "16px", cursor: "pointer", backgroundColor: "#1e2a38", borderRadius: "12px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)", textAlign: "center" }}>
+              <CardContent>
+                {tool.icon}
+                <p style={{ marginTop: "8px", fontWeight: "bold", color: "#b0bec5" }}>{tool.title}</p>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>
